@@ -1,23 +1,6 @@
 # Deployment Guide for MVP Daddy
 
 This guide will help you deploy your cinematic website to the web.
-
-## Option 1: Vercel (Recommended)
-
-Vercel is the easiest way to deploy Vite/React applications.
-
-1.  **Create a GitHub Repository**:
-    *   Initialize a git repo if you haven't already:
-        ```bash
-        git init
-        git add .
-        git commit -m "Initial commit"
-        ```
-    *   Push your code to a new repository on GitHub.
-
-2.  **Deploy to Vercel**:
-    *   Go to [Vercel.com](https://vercel.com) and sign up/login.
-    *   Click **"Add New..."** -> **"Project"**.
     *   Import your GitHub repository.
     *   Vercel will automatically detect that it's a **Vite** project.
     *   Click **"Deploy"**.

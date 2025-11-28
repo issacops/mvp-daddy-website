@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect, ReactNode } from 'react';
+import React, { useState, useRef, useEffect, ReactNode, lazy, Suspense } from 'react';
 import LifeJourney from './LifeJourney';
 import IgnitionHero from './Silhouettes';
-import WorkGallery from './WorkGallery';
-import ProcessTimeline from './ProcessTimeline';
-import TeamManifest from './TeamManifest';
+// Lazy load heavy components below the fold
+const WorkGallery = lazy(() => import('./WorkGallery'));
+const ProcessTimeline = lazy(() => import('./ProcessTimeline'));
+const TeamManifest = lazy(() => import('./TeamManifest'));
 import ScrambleText from './ScrambleText';
 import { useMousePosition } from '../utils/useMousePosition';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
@@ -420,11 +421,15 @@ const HomePage: React.FC = () => {
                 </StoryFrame>
 
                 <div className="pointer-events-auto">
-                    <ProcessTimeline />
+                    <Suspense fallback={<div className="h-[50vh] flex items-center justify-center text-white/20">Loading Timeline...</div>}>
+                        <ProcessTimeline />
+                    </Suspense>
 
                     {/* Watermark removed - GlobalNav provides logo */}
 
-                    <TeamManifest />
+                    <Suspense fallback={<div className="h-[50vh] flex items-center justify-center text-white/20">Loading Team...</div>}>
+                        <TeamManifest />
+                    </Suspense>
                 </div>
 
                 <StoryFrame id="05" align="center" citation="SEVERANCE" subconscious="Autonomy">
@@ -454,7 +459,9 @@ const HomePage: React.FC = () => {
                 </StoryFrame>
 
                 <div className="pointer-events-auto">
-                    <WorkGallery />
+                    <Suspense fallback={<div className="h-[50vh] flex items-center justify-center text-white/20">Loading Work...</div>}>
+                        <WorkGallery />
+                    </Suspense>
                 </div>
 
                 <div className="h-[100vh] flex flex-col items-center justify-center text-center px-6 relative z-30 overflow-hidden">
