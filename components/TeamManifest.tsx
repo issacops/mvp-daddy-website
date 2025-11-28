@@ -29,6 +29,7 @@ const operators = getAllTeamMembers().map(member => ({
         { label: "Projects", value: member.projectsCompleted.toString() },
         { label: "Years", value: `${member.yearsActive}+` }
     ],
+    image: member.image,
     icon: iconMap[member.id] || Zap,
     color: colorMap[member.id] || 'text-accent'
 }));
@@ -66,6 +67,17 @@ const TeamManifest = () => {
                                 <div className="absolute right-[-20%] bottom-[-20%] opacity-[0.05] group-hover:opacity-10 transition-opacity duration-700">
                                     <op.icon size={300} strokeWidth={0.5} />
                                 </div>
+
+                                {op.image && (
+                                    <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-40 transition-opacity duration-700">
+                                        <img
+                                            src={op.image}
+                                            alt={op.name}
+                                            className="w-full h-full object-cover grayscale mix-blend-overlay"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-transparent" />
+                                    </div>
+                                )}
 
                                 <div className="flex justify-between items-start">
                                     <div className="font-mono text-[9px] text-accent tracking-widest border border-accent/20 px-2 py-1 rounded">

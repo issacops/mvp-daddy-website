@@ -68,7 +68,45 @@ const TeamProfile: React.FC = () => {
                 className="relative min-h-screen flex items-center justify-center px-6 pt-32 pb-24"
             >
                 <div className="relative z-10 max-w-5xl mx-auto text-center">
-                    {/* Operator ID */}
+
+                    {/* Profile Image */}
+                    {member.image && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                            transition={{ duration: 1, ease: "circOut" }}
+                            className="w-56 h-56 md:w-72 md:h-72 mx-auto mb-12 relative group"
+                        >
+                            {/* Animated Rings */}
+                            <div className="absolute inset-0 rounded-full border border-white/5 animate-[spin_10s_linear_infinite]" />
+                            <div className="absolute -inset-4 rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]" />
+
+                            {/* Image Container */}
+                            <div className="absolute inset-0 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-accent/50 transition-colors duration-500 bg-void">
+                                {/* The Image */}
+                                <img
+                                    src={member.image}
+                                    alt={member.name}
+                                    className="w-full h-full object-cover grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-700 ease-out"
+                                />
+
+                                {/* Uniform Filter Overlay (Cinematic Grain/Tint) */}
+                                <div className="absolute inset-0 bg-accent/10 mix-blend-overlay pointer-events-none" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-void/80 via-transparent to-transparent opacity-60" />
+                            </div>
+
+                            {/* Decorative Label */}
+                            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+                                <div className="h-8 w-[1px] bg-gradient-to-b from-accent/50 to-transparent" />
+                                <div className="bg-black/80 backdrop-blur-md border border-accent/20 px-4 py-1 rounded-full">
+                                    <span className="font-mono text-[10px] text-accent uppercase tracking-widest">
+                                        IMG_SEQ_{member.id.split('_')[1]?.toUpperCase() || '01'}
+                                    </span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -125,10 +163,10 @@ const TeamProfile: React.FC = () => {
                         </div>
                     </motion.div>
                 </div>
-            </motion.section>
+            </motion.section >
 
             {/* Philosophy Section */}
-            <section className="relative py-24 px-6 border-t border-white/5">
+            < section className="relative py-24 px-6 border-t border-white/5" >
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -141,10 +179,10 @@ const TeamProfile: React.FC = () => {
                         </p>
                     </motion.div>
                 </div>
-            </section>
+            </section >
 
             {/* Bio Section */}
-            <section className="relative py-24 px-6 border-t border-white/5">
+            < section className="relative py-24 px-6 border-t border-white/5" >
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -168,10 +206,10 @@ const TeamProfile: React.FC = () => {
                         </div>
                     </motion.div>
                 </div>
-            </section>
+            </section >
 
             {/* Expertise Section */}
-            <section className="relative py-24 px-6 border-t border-white/5">
+            < section className="relative py-24 px-6 border-t border-white/5" >
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -206,10 +244,10 @@ const TeamProfile: React.FC = () => {
                         </div>
                     </motion.div>
                 </div>
-            </section>
+            </section >
 
             {/* Approach Section */}
-            <section className="relative py-24 px-6 border-t border-white/5">
+            < section className="relative py-24 px-6 border-t border-white/5" >
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -239,10 +277,10 @@ const TeamProfile: React.FC = () => {
                         </div>
                     </motion.div>
                 </div>
-            </section>
+            </section >
 
             {/* Timeline Section */}
-            <section className="relative py-24 px-6 border-t border-white/5">
+            < section className="relative py-24 px-6 border-t border-white/5" >
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -294,10 +332,10 @@ const TeamProfile: React.FC = () => {
                         </div>
                     </motion.div>
                 </div>
-            </section>
+            </section >
 
             {/* CTA Section */}
-            <section className="relative py-32 px-6 border-t border-white/5">
+            < section className="relative py-32 px-6 border-t border-white/5" >
                 <div className="max-w-4xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -316,8 +354,8 @@ const TeamProfile: React.FC = () => {
                         </Link>
                     </motion.div>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 };
 

@@ -17,11 +17,13 @@ export interface TeamMember {
         impact: string;
         tech: string[];
     }>;
+    image?: string;
 }
 
 export const teamMembers: Record<string, TeamMember> = {
     issac_jacob: {
         id: "issac_jacob",
+        image: "/assets/team/issac_jacob.jpg",
         role: "Co-founder & AI Engineer",
         name: "Issac Jacob",
         tagline: "Technically-driven product builder who turns bold ideas into robust, scalable products",
@@ -86,6 +88,7 @@ export const teamMembers: Record<string, TeamMember> = {
 
     ishwari_jadhav: {
         id: "ishwari_jadhav",
+        image: "/assets/team/ishwari_jadhav.jpg",
         role: "Software Architect",
         name: "Ishwari Jadhav",
         tagline: "Designs systems that thrive today and survive tomorrow",
@@ -143,6 +146,7 @@ export const teamMembers: Record<string, TeamMember> = {
 
     ameya_ingale: {
         id: "ameya_ingale",
+        image: "/assets/team/ameya_ingale.jpg",
         role: "AI & Data Science Engineer",
         name: "Ameya Ingale",
         tagline: "Builds with accountability and clear impact",
@@ -194,6 +198,7 @@ export const teamMembers: Record<string, TeamMember> = {
 
     derek_dsouza: {
         id: "derek_dsouza",
+        image: "/assets/team/derek_dsouza.jpg",
         role: "Computer Science & AI Engineer",
         name: "Derek Frederick Dsouza",
         tagline: "Executes technology where it matters",
@@ -239,6 +244,7 @@ export const teamMembers: Record<string, TeamMember> = {
 
     dinesh_lade: {
         id: "dinesh_lade",
+        image: "/assets/team/dinesh_lade.jpg",
         role: "Product Designer & Researcher",
         name: "Dinesh Lade",
         tagline: "Turns chaos into clarity and ideas into products people love",
