@@ -58,6 +58,28 @@
       width: 100vw;
     }
 
+    /* Enable normal cursor on touch devices */
+    @media (hover: none) and (pointer: coarse) {
+
+      body,
+      * {
+        cursor: auto !important;
+      }
+    }
+
+    /* Respect user preference for reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
     ::selection {
       background-color: #FF9933;
       /* Saffron selection */

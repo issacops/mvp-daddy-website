@@ -111,21 +111,21 @@ const CommandPalette: React.FC = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed top-[20%] left-1/2 -translate-x-1/2 w-full max-w-2xl z-[101] px-4"
+                        className="fixed top-[15%] sm:top-[20%] left-1/2 -translate-x-1/2 w-[95%] sm:w-full max-w-2xl z-[101] px-2 sm:px-4"
                     >
-                        <div className="bg-black/90 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden">
+                        <div className="bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
                             {/* Search Input */}
-                            <div className="flex items-center gap-3 px-6 py-4 border-b border-white/10">
-                                <Search size={20} className="text-white/40" />
+                            <div className="flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10">
+                                <Search size={18} className="text-white/40 shrink-0 sm:w-5 sm:h-5" />
                                 <input
                                     ref={inputRef}
                                     type="text"
                                     placeholder="Search pages, projects..."
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
-                                    className="flex-1 bg-transparent text-white placeholder-white/40 outline-none text-lg"
+                                    className="flex-1 bg-transparent text-white placeholder-white/40 outline-none text-base sm:text-lg"
                                 />
-                                <kbd className="px-2 py-1 bg-white/10 rounded text-xs text-white/60 font-mono">
+                                <kbd className="hidden sm:block px-2 py-1 bg-white/10 rounded text-xs text-white/60 font-mono">
                                     ESC
                                 </kbd>
                             </div>
@@ -148,8 +148,8 @@ const CommandPalette: React.FC = () => {
                                                     setSelectedIndex(0);
                                                 }}
                                                 className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg transition-colors ${index === selectedIndex
-                                                        ? 'bg-accent/20 border border-accent/40'
-                                                        : 'hover:bg-white/5'
+                                                    ? 'bg-accent/20 border border-accent/40'
+                                                    : 'hover:bg-white/5'
                                                     }`}
                                             >
                                                 <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center shrink-0">
@@ -173,8 +173,8 @@ const CommandPalette: React.FC = () => {
                             </div>
 
                             {/* Footer */}
-                            <div className="px-6 py-3 border-t border-white/10 flex items-center justify-between text-xs text-white/40">
-                                <div className="flex items-center gap-4">
+                            <div className="px-4 sm:px-6 py-2 sm:py-3 border-t border-white/10 flex items-center justify-between text-xs text-white/40">
+                                <div className="hidden sm:flex items-center gap-4">
                                     <div className="flex items-center gap-1">
                                         <kbd className="px-1.5 py-0.5 bg-white/10 rounded font-mono">↑</kbd>
                                         <kbd className="px-1.5 py-0.5 bg-white/10 rounded font-mono">↓</kbd>
@@ -185,9 +185,10 @@ const CommandPalette: React.FC = () => {
                                         <span className="ml-1">Select</span>
                                     </div>
                                 </div>
-                                <div className="font-mono">
-                                    Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded">/</kbd> or{' '}
-                                    <kbd className="px-1.5 py-0.5 bg-white/10 rounded">⌘K</kbd> to open
+                                <div className="font-mono text-center sm:text-left w-full sm:w-auto">
+                                    <span className="sm:hidden">Tap to select</span>
+                                    <span className="hidden sm:inline">Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded">/</kbd> or{' '}
+                                        <kbd className="px-1.5 py-0.5 bg-white/10 rounded">⌘K</kbd> to open</span>
                                 </div>
                             </div>
                         </div>

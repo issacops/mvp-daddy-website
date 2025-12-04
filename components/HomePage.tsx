@@ -210,42 +210,58 @@ const HomePage: React.FC = () => {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1, duration: 0.8 }}
-                    className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 pointer-events-none"
+                    className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 md:px-12 py-4 sm:py-6 pointer-events-none"
                 >
                     <div className="max-w-7xl mx-auto flex justify-between items-center">
                         <div className="pointer-events-auto">
                             <img
                                 src="/assets/mvp-daddy-logo.svg"
                                 alt="MVP Daddy"
-                                className="h-20 md:h-28 w-auto cursor-pointer transition-transform duration-300 hover:scale-105"
+                                className="h-12 sm:h-16 md:h-20 lg:h-28 w-auto cursor-pointer transition-transform duration-300 hover:scale-105"
                                 onClick={() => window.location.href = '/'}
                             />
                         </div>
-                        <div className="pointer-events-auto flex items-center gap-4">
+                        <div className="pointer-events-auto flex items-center gap-2 sm:gap-4">
                             <button
                                 onClick={() => {
                                     const event = new KeyboardEvent('keydown', { key: '/' });
                                     window.dispatchEvent(event);
                                 }}
-                                className="group flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-accent/10 border border-white/10 hover:border-accent/50 rounded-full transition-all duration-300 backdrop-blur-sm"
+                                className="hidden md:flex group items-center gap-3 px-4 lg:px-6 py-2 lg:py-3 bg-white/5 hover:bg-accent/10 border border-accent/30 hover:border-accent rounded-full transition-all duration-300 backdrop-blur-sm shadow-[0_0_15px_rgba(255,153,51,0.15)]"
                             >
                                 <div className="flex flex-col items-end">
                                     <span className="font-mono text-[10px] text-accent uppercase tracking-widest group-hover:text-white transition-colors">Quick Nav</span>
-                                    <span className="font-sans font-bold text-sm text-white tracking-wide">Press /</span>
+                                    <span className="font-sans font-bold text-sm text-white tracking-wide flex items-center gap-2">
+                                        Press <kbd className="px-1.5 py-0.5 bg-accent/20 rounded text-accent text-xs">/</kbd>
+                                    </span>
                                 </div>
                             </button>
                             <a
                                 href="/initiate"
-                                className="group flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-accent/10 border border-white/10 hover:border-accent/50 rounded-full transition-all duration-300 backdrop-blur-sm"
+                                className="group flex items-center gap-2 sm:gap-3 px-3 sm:px-4 lg:px-6 py-2 lg:py-3 bg-white/5 hover:bg-accent/10 border border-white/10 hover:border-accent/50 rounded-full transition-all duration-300 backdrop-blur-sm"
                             >
                                 <div className="flex flex-col items-end">
-                                    <span className="font-mono text-[10px] text-accent uppercase tracking-widest group-hover:text-white transition-colors">System Ready</span>
-                                    <span className="font-sans font-bold text-sm text-white tracking-wide">INITIATE PROTOCOL</span>
+                                    <span className="font-mono text-[8px] sm:text-[10px] text-accent uppercase tracking-widest group-hover:text-white transition-colors">System Ready</span>
+                                    <span className="font-sans font-bold text-xs sm:text-sm text-white tracking-wide">INITIATE</span>
                                 </div>
-                                <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all duration-300">
-                                    <ArrowRight size={14} />
+                                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all duration-300">
+                                    <ArrowRight size={12} className="sm:hidden" />
+                                    <ArrowRight size={14} className="hidden sm:block" />
                                 </div>
                             </a>
+                            {/* Mobile Menu Button */}
+                            <button
+                                onClick={() => {
+                                    const event = new KeyboardEvent('keydown', { key: '/' });
+                                    window.dispatchEvent(event);
+                                }}
+                                className="md:hidden p-2 bg-white/5 border border-white/10 rounded-full hover:bg-accent/10 transition-all"
+                                aria-label="Open navigation"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-white">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </motion.header>
@@ -273,7 +289,7 @@ const HomePage: React.FC = () => {
                             </ParallaxElement>
                             <RevealText delay={0.1}>
                                 <ParallaxElement speed={1.0}>
-                                    <h2 className="font-sans font-extrabold text-6xl md:text-8xl leading-none text-white tracking-tighter uppercase">
+                                    <h2 className="font-sans font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-8xl leading-none text-white tracking-tighter uppercase">
                                         Architecting <br />
                                         <span className="text-accent">The Impossible.</span>
                                     </h2>
@@ -281,7 +297,7 @@ const HomePage: React.FC = () => {
                             </RevealText>
                             <RevealText delay={0.2}>
                                 <ParallaxElement speed={1.1}>
-                                    <h2 className="font-sans font-extrabold text-6xl md:text-8xl leading-[0.85] text-accent tracking-tighter uppercase">
+                                    <h2 className="font-sans font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-8xl leading-[0.85] text-accent tracking-tighter uppercase">
                                         Value.
                                     </h2>
                                 </ParallaxElement>
@@ -318,7 +334,7 @@ const HomePage: React.FC = () => {
                             </ParallaxElement>
                             <RevealText delay={0.1}>
                                 <ParallaxElement speed={1.0}>
-                                    <h2 className="font-sans font-extrabold text-5xl md:text-7xl leading-[0.9] text-white tracking-tighter uppercase">
+                                    <h2 className="font-sans font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-[0.9] text-white tracking-tighter uppercase">
                                         Precision<br />Scale
                                     </h2>
                                 </ParallaxElement>
@@ -355,7 +371,7 @@ const HomePage: React.FC = () => {
                                 </h2>
                             </RevealText>
                             <RevealText delay={0.1}>
-                                <h2 className="font-sans font-extrabold text-5xl md:text-9xl mb-16 leading-[0.8] text-white text-center tracking-tighter uppercase">
+                                <h2 className="font-sans font-extrabold text-3xl sm:text-5xl md:text-7xl lg:text-9xl mb-8 md:mb-16 leading-[0.8] text-white text-center tracking-tighter uppercase">
                                     Hyperspeed.
                                 </h2>
                             </RevealText>
@@ -405,7 +421,7 @@ const HomePage: React.FC = () => {
                                 </div>
                             </RevealText>
                             <RevealText delay={0.5}>
-                                <h2 className="font-sans font-extrabold text-7xl md:text-[9vw] text-white mb-2 tracking-tighter leading-[0.8] uppercase">
+                                <h2 className="font-sans font-extrabold text-4xl sm:text-5xl md:text-7xl lg:text-[9vw] text-white mb-2 tracking-tighter leading-[0.8] uppercase">
                                     Legacy <br />Defined.
                                 </h2>
                             </RevealText>
@@ -441,7 +457,7 @@ const HomePage: React.FC = () => {
                             className="w-24 h-[2px] bg-accent mx-auto mb-12"
                         />
                         <RevealText>
-                            <h2 className="font-serif italic text-5xl md:text-8xl mb-6 text-white/90">
+                            <h2 className="font-serif italic text-3xl sm:text-5xl md:text-6xl lg:text-8xl mb-6 text-white/90">
                                 Severance <span className="not-italic font-sans font-bold text-white">& Scale.</span>
                             </h2>
                         </RevealText>
@@ -473,7 +489,7 @@ const HomePage: React.FC = () => {
 
                     <div className="w-full max-w-5xl mx-auto p-12 relative z-20 pointer-events-auto">
                         <RevealText>
-                            <h2 className="font-sans font-bold text-6xl md:text-[8vw] mb-4 text-white tracking-tighter leading-[0.9] uppercase">
+                            <h2 className="font-sans font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[8vw] mb-4 text-white tracking-tighter leading-[0.9] uppercase">
                                 We Build <br />
                                 <span className="font-serif italic font-light text-white/40 lowercase">To Leave.</span>
                             </h2>
@@ -542,6 +558,12 @@ const HomePage: React.FC = () => {
                             <div className="font-mono text-xs text-white/40 uppercase tracking-widest">
                                 Building MVPs That Scale
                             </div>
+                            <a
+                                href="mailto:hello@mvpdaddy.com"
+                                className="font-mono text-xs text-accent hover:text-white transition-colors tracking-wide"
+                            >
+                                hello@mvpdaddy.com
+                            </a>
                             <div className="font-mono text-xs text-white/30">
                                 © 2024 MVP Daddy. All rights reserved.
                             </div>

@@ -100,15 +100,15 @@ const Card: React.FC<CardProps> = ({ p, i }) => {
 
 const WorkGallery = () => {
     return (
-        <div className="w-full py-32 px-4 md:px-12 relative z-20 bg-void/50 backdrop-blur-sm border-t border-white/5">
+        <div className="w-full py-16 sm:py-24 md:py-32 px-4 md:px-12 relative z-20 bg-void/50 backdrop-blur-sm border-t border-white/5">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-white/10 pb-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 md:mb-20 border-b border-white/10 pb-6 sm:pb-8">
                     <div>
-                        <h2 className="font-serif italic text-6xl md:text-8xl text-white leading-none">
+                        <h2 className="font-serif italic text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white leading-none">
                             Evidence <br /><span className="not-italic font-sans font-bold tracking-tight">Log</span>
                         </h2>
                     </div>
-                    <div className="font-mono text-xs text-white/40 mb-2">
+                    <div className="font-mono text-xs text-white/40 mt-4 md:mt-0 md:mb-2">
                         <ScrambleText text="[ ARCHIVE_ACCESS_GRANTED ]" />
                     </div>
                 </div>

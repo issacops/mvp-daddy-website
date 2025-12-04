@@ -38,31 +38,31 @@ const TeamManifest = () => {
     const [activeOp, setActiveOp] = useState<number | null>(null);
 
     return (
-        <section className="relative z-20 py-32 px-4 md:px-12 border-t border-white/5 bg-void/80 backdrop-blur-sm">
+        <section className="relative z-20 py-16 sm:py-24 md:py-32 px-4 md:px-12 border-t border-white/5 bg-void/80 backdrop-blur-sm">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-white/10 pb-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 md:mb-24 border-b border-white/10 pb-6 sm:pb-8">
                     <div>
-                        <h2 className="font-serif italic text-5xl md:text-7xl text-white leading-none mb-2">
+                        <h2 className="font-serif italic text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-white leading-none mb-2">
                             Specialized <br /><span className="not-italic font-sans font-bold tracking-tight">Operators</span>
                         </h2>
                     </div>
-                    <div className="font-mono text-xs text-white/40 mb-2 text-right">
+                    <div className="font-mono text-xs text-white/40 mt-4 md:mt-0 md:mb-2 md:text-right">
                         [ UNIT_DEPLOYMENT ]<br />
                         NO_BLOAT_DETECTED
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px] md:h-[500px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
                     {operators.map((op, i) => (
                         <Link
                             key={op.id}
                             to={`/team/${op.id}`}
-                            className="block h-full cursor-none"
+                            className="block cursor-none"
                         >
                             <motion.div
                                 onMouseEnter={() => setActiveOp(i)}
                                 onMouseLeave={() => setActiveOp(null)}
-                                className={`relative h-full border border-white/10 p-8 flex flex-col justify-between transition-all duration-500 overflow-hidden group ${activeOp === i ? 'bg-white/5 border-white/30' : 'bg-transparent'}`}
+                                className={`relative min-h-[280px] sm:min-h-[320px] h-full border border-white/10 p-6 sm:p-8 flex flex-col justify-between transition-all duration-500 overflow-hidden group ${activeOp === i ? 'bg-white/5 border-white/30' : 'bg-transparent'}`}
                             >
                                 <div className="absolute right-[-20%] bottom-[-20%] opacity-[0.05] group-hover:opacity-10 transition-opacity duration-700">
                                     <op.icon size={300} strokeWidth={0.5} />

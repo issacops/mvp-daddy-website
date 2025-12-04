@@ -269,11 +269,19 @@ const ProjectDashboard = () => {
                 className="fixed top-0 left-0 right-0 z-50 px-6 py-6 pointer-events-none"
             >
                 <div className="max-w-[1600px] mx-auto flex items-center justify-between">
-                    {/* Left: Back Button */}
+                    {/* Left: Back Button + Breadcrumb */}
                     <div className="flex items-center gap-4 pointer-events-auto">
                         <Link to="/" className="p-3 bg-black/60 backdrop-blur-xl border border-white/20 rounded-full hover:bg-white/10 transition-all duration-300 group">
                             <ArrowLeft size={20} className="text-white/60 group-hover:text-white transition-colors" />
                         </Link>
+                        {/* Breadcrumb */}
+                        <nav className="hidden sm:flex items-center gap-2 text-xs font-mono">
+                            <Link to="/" className="text-white/40 hover:text-white transition-colors">Home</Link>
+                            <span className="text-white/20">/</span>
+                            <span className="text-white/40">Projects</span>
+                            <span className="text-white/20">/</span>
+                            <span className="text-accent">{data.name}</span>
+                        </nav>
                     </div>
 
                     {/* Center: Project Name */}
@@ -309,10 +317,10 @@ const ProjectDashboard = () => {
                 </div>
             </motion.div>
 
-            <div className="pt-32 px-6 pb-12 max-w-[1600px] mx-auto grid grid-cols-12 gap-6 h-[calc(100vh-2rem)]">
+            <div className="pt-20 sm:pt-24 md:pt-32 px-4 sm:px-6 pb-8 sm:pb-12 max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 min-h-screen lg:h-[calc(100vh-2rem)]">
 
                 {/* LEFT COLUMN: METRICS */}
-                <div className="col-span-12 md:col-span-3 flex flex-col gap-6">
+                <div className="col-span-1 lg:col-span-3 flex flex-col gap-4 sm:gap-6 order-2 lg:order-1">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                         className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 relative overflow-hidden group"
@@ -379,10 +387,10 @@ const ProjectDashboard = () => {
                 </div>
 
                 {/* CENTER COLUMN: 3D ARCHITECTURE */}
-                <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
+                <div className="col-span-1 lg:col-span-6 flex flex-col gap-4 sm:gap-6 order-1 lg:order-2">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}
-                        className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 h-full relative overflow-hidden"
+                        className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-4 sm:p-6 h-[300px] sm:h-[400px] lg:h-full relative overflow-hidden"
                     >
                         <div className="absolute top-6 left-6 z-10 flex gap-4">
                             <span className="font-mono text-xs text-white/60">System Architecture</span>
@@ -414,7 +422,7 @@ const ProjectDashboard = () => {
                 </div>
 
                 {/* RIGHT COLUMN: BRIEF & TEAM */}
-                <div className="col-span-12 md:col-span-3 flex flex-col gap-6 overflow-hidden">
+                <div className="col-span-1 lg:col-span-3 flex flex-col gap-4 sm:gap-6 overflow-hidden order-3">
 
                     <div className="flex gap-4 items-center">
                         <div className="bg-white/10 text-white px-4 py-2 rounded-full text-xs font-mono uppercase border border-white/20 cursor-default">Case Study</div>

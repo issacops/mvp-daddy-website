@@ -47,7 +47,7 @@ const IgnitionHero = () => {
             </AnimatePresence>
 
             {(stage === 'epiphany' || stage === 'reveal') && (
-                <div className="z-10 flex flex-col items-center text-center max-w-7xl mix-blend-difference">
+                <div className="z-10 flex flex-col items-center text-center max-w-7xl px-4 mix-blend-difference">
 
                     <motion.div className="mb-8 relative">
                         {stage === 'epiphany' && (
@@ -56,7 +56,7 @@ const IgnitionHero = () => {
                                 animate={{ scale: 1, filter: "blur(0px)" }}
                                 transition={{ duration: 1.5, ease: "easeOut" }}
                             >
-                                <h1 className="font-sans font-bold text-5xl md:text-[7vw] leading-[0.9] tracking-tight text-white uppercase">
+                                <h1 className="font-sans font-bold text-3xl sm:text-4xl md:text-5xl lg:text-[7vw] leading-[0.9] tracking-tight text-white uppercase">
                                     The Moment<br />
                                     <span className="font-serif italic font-light text-accent lowercase">they knew.</span>
                                 </h1>
@@ -69,7 +69,7 @@ const IgnitionHero = () => {
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1 }}
                             >
-                                <h1 className="font-serif italic font-light text-5xl md:text-[8vw] leading-[0.9] text-white">
+                                <h1 className="font-serif italic font-light text-3xl sm:text-4xl md:text-5xl lg:text-[8vw] leading-[0.9] text-white">
                                     We Engineer<br />
                                     <span className="font-sans font-bold not-italic tracking-tighter text-white">Digital Autonomy.</span>
                                 </h1>

@@ -47,7 +47,7 @@ const InputField = ({
             onKeyDown={(e) => e.key === 'Enter' && onEnter && onEnter()}
             placeholder={placeholder}
             autoFocus={autoFocus}
-            className="relative w-full bg-black/50 border-b-2 border-white/10 focus:border-accent text-2xl md:text-4xl py-4 px-2 text-white placeholder-white/20 outline-none transition-all duration-300 font-sans font-light"
+            className="relative w-full bg-black/50 border-b-2 border-white/10 focus:border-accent text-lg sm:text-xl md:text-2xl lg:text-4xl py-3 sm:py-4 px-2 text-white placeholder-white/20 outline-none transition-all duration-300 font-sans font-light"
         />
         <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Terminal size={20} className="text-accent/50" />
@@ -66,7 +66,7 @@ const ChoiceButton = ({
 }) => (
     <button
         onClick={onClick}
-        className={`group relative px-8 py-6 text-left transition-all duration-300 w-full md:w-auto min-w-[200px] overflow-hidden border ${selected ? 'border-accent bg-accent/10' : 'border-white/10 hover:border-white/30 bg-white/5'}`}
+        className={`group relative px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 text-left transition-all duration-300 w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] overflow-hidden border ${selected ? 'border-accent bg-accent/10' : 'border-white/10 hover:border-white/30 bg-white/5'}`}
     >
         <div className={`absolute inset-0 bg-accent/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out ${selected ? 'translate-y-0' : ''}`} />
         <span className={`relative font-mono text-sm uppercase tracking-widest ${selected ? 'text-accent' : 'text-white/60 group-hover:text-white'}`}>
@@ -163,7 +163,7 @@ const OnboardingFlow = () => {
                         value={formData.vision}
                         onChange={e => setFormData({ ...formData, vision: e.target.value })}
                         placeholder="I want to disrupt..."
-                        className="relative w-full bg-black/50 border-b-2 border-white/10 focus:border-accent text-xl md:text-2xl py-4 px-2 text-white placeholder-white/20 outline-none transition-all duration-300 font-sans font-light min-h-[150px] resize-none"
+                        className="relative w-full bg-black/50 border-b-2 border-white/10 focus:border-accent text-base sm:text-lg md:text-xl lg:text-2xl py-3 sm:py-4 px-2 text-white placeholder-white/20 outline-none transition-all duration-300 font-sans font-light min-h-[120px] sm:min-h-[150px] resize-none"
                         autoFocus
                     />
                 </div>
@@ -222,33 +222,42 @@ const OnboardingFlow = () => {
             <div className="fixed inset-0 opacity-5 pointer-events-none film-grain z-0" />
 
             {/* Header / Progress */}
-            <div className="fixed top-0 left-0 w-full p-8 z-50 flex justify-between items-start pointer-events-none">
+            <div className="fixed top-0 left-0 w-full p-4 sm:p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2 text-accent/50 font-mono text-xs tracking-widest uppercase">
                         <Cpu size={12} />
                         <span>Initiation Protocol v1.0</span>
                     </div>
                     {step > 0 && step < 6 && (
-                        <div className="flex gap-1 mt-2">
-                            {[1, 2, 3, 4, 5].map(i => (
+                        <>
+                            {/* Step Counter */}
+                            <div className="font-mono text-sm text-white/60 mt-1">
+                                Step <span className="text-accent font-bold">{step}</span> of <span className="text-white/80">5</span>
+                            </div>
+                            {/* Progress Bar */}
+                            <div className="w-32 sm:w-48 h-1.5 bg-white/10 rounded-full mt-2 overflow-hidden">
                                 <div
-                                    key={i}
-                                    className={`h-1 w-8 rounded-full transition-colors duration-500 ${i <= step ? 'bg-accent' : 'bg-white/10'}`}
+                                    className="h-full bg-gradient-to-r from-accent to-orange-400 rounded-full transition-all duration-500 ease-out"
+                                    style={{ width: `${(step / 5) * 100}%` }}
                                 />
-                            ))}
-                        </div>
+                            </div>
+                            <div className="font-mono text-[10px] text-white/40 mt-1">
+                                {Math.round((step / 5) * 100)}% complete
+                            </div>
+                        </>
                     )}
                 </div>
                 <button
                     onClick={() => navigate('/')}
-                    className="pointer-events-auto text-white/40 hover:text-white font-mono text-xs uppercase tracking-widest transition-colors"
+                    className="pointer-events-auto text-white/40 hover:text-white font-mono text-xs uppercase tracking-widest transition-colors flex items-center gap-2"
                 >
-                    [ Abort ]
+                    <span>Exit</span>
+                    <span className="text-white/20">×</span>
                 </button>
             </div>
 
             {/* Main Content Area */}
-            <div className="relative z-10 w-full h-screen flex flex-col items-center justify-center p-6 md:p-24">
+            <div className="relative z-10 w-full h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-12 lg:p-24">
                 <AnimatePresence mode="wait">
 
                     {/* STEP 0: INTRO */}
@@ -293,7 +302,7 @@ const OnboardingFlow = () => {
                                 <ScrambleText text={questions[step - 1].label} />
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight leading-tight">
                                 {questions[step - 1].question}
                             </h2>
 
@@ -315,7 +324,7 @@ const OnboardingFlow = () => {
 
                                 <button
                                     onClick={handleNext}
-                                    className="group flex items-center gap-4 bg-white text-black px-8 py-4 rounded-full font-bold tracking-wide hover:bg-accent hover:text-white transition-all duration-300"
+                                    className="group flex items-center gap-3 sm:gap-4 bg-white text-black px-5 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base tracking-wide hover:bg-accent hover:text-white transition-all duration-300"
                                 >
                                     <span>{step === 5 ? 'TRANSMIT' : 'CONTINUE'}</span>
                                     <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -336,7 +345,7 @@ const OnboardingFlow = () => {
                                 <Shield size={40} />
                             </div>
 
-                            <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tighter">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tighter">
                                 Transmission Received.
                             </h2>
 

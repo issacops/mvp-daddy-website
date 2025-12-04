@@ -65,7 +65,7 @@ const TeamProfile: React.FC = () => {
             {/* Hero Section */}
             <motion.section
                 style={{ y: heroY, opacity: heroOpacity }}
-                className="relative min-h-screen flex items-center justify-center px-6 pt-32 pb-24"
+                className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-24"
             >
                 <div className="relative z-10 max-w-5xl mx-auto text-center">
 
@@ -75,7 +75,7 @@ const TeamProfile: React.FC = () => {
                             initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
                             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                             transition={{ duration: 1, ease: "circOut" }}
-                            className="w-56 h-56 md:w-72 md:h-72 mx-auto mb-12 relative group"
+                            className="w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 mx-auto mb-8 sm:mb-12 relative group"
                         >
                             {/* Animated Rings */}
                             <div className="absolute inset-0 rounded-full border border-white/5 animate-[spin_10s_linear_infinite]" />
@@ -121,7 +121,7 @@ const TeamProfile: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="font-sans font-bold text-5xl md:text-7xl text-white mb-4 leading-tight"
+                        className="font-sans font-bold text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-white mb-4 leading-tight"
                     >
                         {member.name}
                     </motion.h1>
@@ -154,27 +154,27 @@ const TeamProfile: React.FC = () => {
                         className="flex flex-wrap justify-center gap-12"
                     >
                         <div className="text-center">
-                            <div className="font-mono text-5xl md:text-6xl text-accent mb-2">{member.yearsActive}+</div>
-                            <div className="font-sans text-sm text-white/40 uppercase tracking-wider">Years Active</div>
+                            <div className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-accent mb-2">{member.yearsActive}+</div>
+                            <div className="font-sans text-xs sm:text-sm text-white/40 uppercase tracking-wider">Years Active</div>
                         </div>
                         <div className="text-center">
-                            <div className="font-mono text-5xl md:text-6xl text-accent mb-2">{member.projectsCompleted}</div>
-                            <div className="font-sans text-sm text-white/40 uppercase tracking-wider">Projects Shipped</div>
+                            <div className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-accent mb-2">{member.projectsCompleted}</div>
+                            <div className="font-sans text-xs sm:text-sm text-white/40 uppercase tracking-wider">Projects Shipped</div>
                         </div>
                     </motion.div>
                 </div>
             </motion.section >
 
             {/* Philosophy Section */}
-            < section className="relative py-24 px-6 border-t border-white/5" >
+            < section className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 border-t border-white/5" >
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="font-mono text-xs text-accent uppercase tracking-widest mb-8">Philosophy</h2>
-                        <p className="font-sans text-xl md:text-2xl text-white/80 leading-relaxed border-l-4 border-accent pl-8">
+                        <h2 className="font-mono text-xs text-accent uppercase tracking-widest mb-6 sm:mb-8">Philosophy</h2>
+                        <p className="font-sans text-lg sm:text-xl md:text-2xl text-white/80 leading-relaxed border-l-4 border-accent pl-4 sm:pl-6 md:pl-8">
                             {member.philosophy}
                         </p>
                     </motion.div>
@@ -342,7 +342,7 @@ const TeamProfile: React.FC = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="font-sans font-bold text-4xl md:text-6xl text-white mb-8">
+                        <h2 className="font-sans font-bold text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-6 sm:mb-8">
                             Ready to build something extraordinary?
                         </h2>
                         <Link
