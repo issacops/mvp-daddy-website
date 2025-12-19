@@ -27,7 +27,7 @@ const GlobalNav: React.FC = () => {
                                 <img
                                     src="/assets/mvp-daddy-logo.svg"
                                     alt="MVP Daddy"
-                                    className="h-10 sm:h-14 md:h-20 lg:h-24 w-auto transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
+                                    className="h-8 sm:h-14 md:h-20 lg:h-24 w-auto transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
                                 />
                             </Link>
 
@@ -104,18 +104,19 @@ const GlobalNav: React.FC = () => {
                             </div>
 
                             {/* Mobile Menu Button */}
-                            <div className="flex md:hidden items-center gap-2">
+                            <div className="flex md:hidden items-center gap-3">
                                 <Link
                                     to="/initiate"
-                                    className="px-3 py-1.5 bg-gradient-to-r from-accent to-orange-500 text-black font-bold text-xs rounded-full"
+                                    className="px-3 py-2 bg-gradient-to-r from-accent to-orange-500 text-black font-bold text-[10px] uppercase tracking-wider rounded-full hover:shadow-lg transition-all"
                                 >
                                     Initiate
                                 </Link>
                                 <button
                                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                    className="p-2 text-white/70 hover:text-white transition-colors"
+                                    className="p-2 text-white/90 hover:text-white transition-colors border border-white/10 rounded-full bg-white/5"
+                                    aria-label="Toggle menu"
                                 >
-                                    {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                                    {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
                                 </button>
                             </div>
                         </div>
@@ -138,7 +139,7 @@ const GlobalNav: React.FC = () => {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="absolute right-0 top-0 bottom-0 w-[280px] bg-void border-l border-white/10 p-6 pt-20"
+                            className="absolute right-0 top-0 bottom-0 w-[85vw] max-w-[300px] bg-void border-l border-white/10 p-6 pt-24"
                         >
                             <div className="space-y-4">
                                 <div className="font-mono text-xs text-accent uppercase tracking-widest mb-6">Navigation</div>

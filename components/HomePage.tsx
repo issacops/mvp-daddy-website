@@ -129,11 +129,11 @@ const StoryFrame: React.FC<StoryFrameProps> = ({
     chapter,
     subconscious
 }) => (
-    <div className="min-h-[130vh] w-full relative flex items-center justify-center pointer-events-none py-24">
+    <div className="min-h-[100svh] md:min-h-[130vh] w-full relative flex items-center justify-center pointer-events-none py-12 md:py-24">
 
         {subconscious && (
             <ParallaxText className="mix-blend-overlay" offset={30}>
-                <h2 className="font-sans font-bold text-[20vw] leading-none text-white tracking-tighter uppercase opacity-10">
+                <h2 className="font-sans font-bold text-[15vw] md:text-[20vw] leading-none text-white tracking-tighter uppercase opacity-10">
                     {subconscious}
                 </h2>
             </ParallaxText>
@@ -284,7 +284,7 @@ const HomePage: React.FC = () => {
                         </RevealText>
 
                         <div className="mb-8 relative">
-                            <ParallaxElement speed={0.8} className="absolute -top-12 -left-8 text-[120px] font-indic text-white/[0.03] pointer-events-none select-none">
+                            <ParallaxElement speed={0.8} className="absolute -top-12 -left-8 text-[80px] md:text-[120px] font-indic text-white/[0.03] pointer-events-none select-none">
                                 उत्पत्ति
                             </ParallaxElement>
                             <RevealText delay={0.1}>
@@ -329,8 +329,8 @@ const HomePage: React.FC = () => {
                         </RevealText>
 
                         <div className="mb-6 text-right relative">
-                            <ParallaxElement speed={0.8} className="absolute -top-12 -right-8 text-[120px] font-tamil text-white/[0.03] pointer-events-none select-none">
-                                கட்டமைப்பு
+                            <ParallaxElement speed={0.8} className="absolute -top-12 -right-8 text-[80px] md:text-[120px] font-tamil text-white/[0.03] pointer-events-none select-none">
+                                கட்டமைப்பில்
                             </ParallaxElement>
                             <RevealText delay={0.1}>
                                 <ParallaxElement speed={1.0}>
@@ -482,7 +482,7 @@ const HomePage: React.FC = () => {
 
                 <div className="h-[100vh] flex flex-col items-center justify-center text-center px-6 relative z-30 overflow-hidden">
                     <ParallaxText className="mix-blend-overlay" offset={20}>
-                        <h2 className="font-sans font-bold text-[25vw] leading-none text-white tracking-tighter uppercase opacity-5">
+                        <h2 className="font-sans font-bold text-[15vw] md:text-[25vw] leading-none text-white tracking-tighter uppercase opacity-5">
                             LEGACY
                         </h2>
                     </ParallaxText>

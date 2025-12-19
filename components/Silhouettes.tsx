@@ -71,7 +71,7 @@ const IgnitionHero = () => {
                             >
                                 <h1 className="font-serif italic font-light text-3xl sm:text-4xl md:text-5xl lg:text-[8vw] leading-[0.9] text-white">
                                     We Engineer<br />
-                                    <span className="font-sans font-bold not-italic tracking-tighter text-white">Digital Autonomy.</span>
+                                    <span className="font-sans font-bold not-italic tracking-tighter text-white text-2xl sm:text-3xl md:text-5xl lg:text-[7vw]">Digital Autonomy.</span>
                                 </h1>
                             </motion.div>
                         )}
