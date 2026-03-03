@@ -111,12 +111,38 @@ const OnboardingFlow = () => {
 
     const handleSubmit = async () => {
         setIsSubmitting(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        console.log('FORM SUBMISSION:', formData);
-        localStorage.setItem('mvp_daddy_onboarding', JSON.stringify(formData));
-        setIsSubmitting(false);
-        setStep(6); // Success screen
+        const scriptUrl = import.meta.env.VITE_GOOGLE_SHEET_URL;
+
+        if (!scriptUrl) {
+            console.warn('VITE_GOOGLE_SHEET_URL is not defined in environment variables.');
+            // Fallback for development/preview
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            console.log('FORM DATA (NO WEBHOOK):', formData);
+            setStep(6);
+            setIsSubmitting(false);
+            return;
+        }
+
+        try {
+            const response = await fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors', // Essential for Google Apps Script webhooks
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    ...formData
+                })
+            });
+
+            console.log('Submission transmitted');
+            localStorage.setItem('mvp_daddy_onboarding', JSON.stringify(formData));
+            setStep(6);
+        } catch (error) {
+            console.error('TRANSMISSION ERROR:', error);
+            alert('System signal lost. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const questions = [
