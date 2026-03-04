@@ -1,8 +1,7 @@
 /// <reference types="vite/client" />
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Check, Terminal, Cpu, Shield, Zap } from 'lucide-react';
-import ScrambleText from './ScrambleText';
+import { ArrowRight, Check, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 // --- Types ---
@@ -22,9 +21,30 @@ const INITIAL_DATA: FormData = {
     timeline: ''
 };
 
-// --- Components ---
+// --- Custom Scramble Component for Editorial Feel ---
+const EditorialScramble = ({ text }: { text: string }) => {
+    const [display, setDisplay] = useState(text.replace(/[a-zA-Z]/g, '█'));
 
-const InputField = ({
+    useEffect(() => {
+        let iterations = 0;
+        const interval = setInterval(() => {
+            setDisplay(text.split('').map((char, index) => {
+                if (index < iterations) return char;
+                return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)] || '█';
+            }).join(''));
+
+            if (iterations >= text.length) clearInterval(interval);
+            iterations += 1 / 3;
+        }, 30);
+        return () => clearInterval(interval);
+    }, [text]);
+
+    return <span>{display}</span>;
+}
+
+// --- High-Impact Components ---
+
+const EditorialInput = ({
     value,
     onChange,
     placeholder,
@@ -39,8 +59,7 @@ const InputField = ({
     autoFocus?: boolean;
     onEnter?: () => void;
 }) => (
-    <div className="relative group w-full max-w-2xl">
-        <div className="absolute -inset-1 bg-gradient-to-r from-brand-red/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
+    <div className="relative w-full border-b-2 border-brand-red">
         <input
             type={type}
             value={value}
@@ -48,62 +67,53 @@ const InputField = ({
             onKeyDown={(e) => e.key === 'Enter' && onEnter && onEnter()}
             placeholder={placeholder}
             autoFocus={autoFocus}
-            className="relative w-full bg-transparent border-b-2 border-brand-sand/30 focus:border-brand-red text-3xl sm:text-4xl md:text-5xl py-3 sm:py-4 px-2 text-brand-white placeholder-brand-sand/30 outline-none transition-all duration-300 font-serif italic"
+            className="w-full bg-transparent text-5xl sm:text-7xl lg:text-8xl py-6 font-serif italic text-brand-black placeholder-brand-black/20 outline-none transition-all duration-300"
         />
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Terminal size={20} className="text-brand-red/50" />
-        </div>
+        <div className="absolute left-0 bottom-0 w-full h-1 bg-brand-red origin-left transform scale-x-0 transition-transform duration-500 will-change-transform group-focus-within:scale-x-100" />
     </div>
 );
 
-const ChoiceButton: React.FC<{
+const BrutalistChoice: React.FC<{
     label: string;
     selected: boolean;
     onClick: () => void;
 }> = ({ label, selected, onClick }) => (
     <button
         onClick={onClick}
-        className={`group relative px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 text-left transition-all duration-300 w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] overflow-hidden border ${selected ? 'border-brand-red bg-brand-red/10' : 'border-brand-sand/20 hover:border-brand-saffron bg-brand-white/5'}`}
+        className={`group relative p-8 text-left transition-all duration-300 w-full sm:w-[calc(50%-1rem)] border-2 ${selected ? 'border-brand-red bg-brand-red text-brand-white' : 'border-brand-black/20 bg-transparent text-brand-black hover:border-brand-red hover:bg-brand-red/5'}`}
     >
-        <div className={`absolute inset-0 bg-brand-red/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out ${selected ? 'translate-y-0' : ''}`} />
-        <span className={`relative font-mono text-lg uppercase tracking-widest ${selected ? 'text-brand-red' : 'text-brand-sand/60 group-hover:text-brand-sand'}`}>
+        <span className={`block font-display text-4xl uppercase tracking-tighter ${selected ? 'text-brand-white' : 'group-hover:text-brand-red'} transition-colors duration-300`}>
             {label}
         </span>
         {selected && (
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-red">
-                <Check size={16} />
+            <div className="absolute top-4 right-4 text-brand-white">
+                <Check size={32} strokeWidth={3} />
             </div>
         )}
     </button>
 );
 
-// --- Main Component ---
+// --- Main Flow ---
 
 const OnboardingFlow = () => {
     const navigate = useNavigate();
-    const [step, setStep] = useState(0); // 0: Intro, 1-5: Questions, 6: Outro
+    const [step, setStep] = useState(0);
     const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    // Intro State
     const [introPhase, setIntroPhase] = useState(0);
 
     useEffect(() => {
-        // Intro Sequence
+        // Dramatic Intro Sequence
         if (step === 0) {
-            const t1 = setTimeout(() => setIntroPhase(1), 1000); // Establishing Uplink
-            const t2 = setTimeout(() => setIntroPhase(2), 2500); // Secure Connection
-            const t3 = setTimeout(() => setStep(1), 4000); // Start Questions
-            return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+            const t1 = setTimeout(() => setIntroPhase(1), 1200);
+            const t2 = setTimeout(() => setStep(1), 3000);
+            return () => { clearTimeout(t1); clearTimeout(t2); };
         }
     }, [step]);
 
     const handleNext = () => {
-        if (step < 5) {
-            setStep(s => s + 1);
-        } else {
-            handleSubmit();
-        }
+        if (step < 5) setStep(s => s + 1);
+        else handleSubmit();
     };
 
     const handleSubmit = async () => {
@@ -111,32 +121,28 @@ const OnboardingFlow = () => {
         const scriptUrl = import.meta.env.VITE_GOOGLE_SHEET_URL;
 
         if (!scriptUrl) {
-            console.warn('VITE_GOOGLE_SHEET_URL is not defined in environment variables.');
-            // Fallback for development/preview
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            console.log('FORM DATA (NO WEBHOOK):', formData);
+            console.warn('VITE_GOOGLE_SHEET_URL not defined.');
+            await new Promise(resolve => setTimeout(resolve, 1500));
             setStep(6);
             setIsSubmitting(false);
             return;
         }
 
         try {
-            const response = await fetch(scriptUrl, {
+            await fetch(scriptUrl, {
                 method: 'POST',
-                mode: 'no-cors', // Essential for Google Apps Script webhooks
+                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     timestamp: new Date().toISOString(),
                     ...formData
                 })
             });
-
-            console.log('Submission transmitted');
             localStorage.setItem('mvp_daddy_onboarding', JSON.stringify(formData));
             setStep(6);
         } catch (error) {
             console.error('TRANSMISSION ERROR:', error);
-            alert('System signal lost. Please try again.');
+            alert('Signal lost. Ensure connection and retry.');
         } finally {
             setIsSubmitting(false);
         }
@@ -145,14 +151,14 @@ const OnboardingFlow = () => {
     const questions = [
         {
             id: 'identity',
-            label: 'INTRODUCTION',
-            question: 'Who is initiating the inquiry?',
-            subtext: 'Enter your name or the name of your organization.',
+            label: '01 // Identity',
+            question: 'Who are we architecting for?',
+            subtext: 'Your name or organization.',
             component: (
-                <InputField
+                <EditorialInput
                     value={formData.name}
                     onChange={v => setFormData({ ...formData, name: v })}
-                    placeholder="Enter Name..."
+                    placeholder="Jane Doe"
                     autoFocus
                     onEnter={handleNext}
                 />
@@ -160,14 +166,14 @@ const OnboardingFlow = () => {
         },
         {
             id: 'signal',
-            label: 'CORRESPONDENCE',
-            question: 'Where should we direct our response?',
-            subtext: 'Provide an email address for direct communication.',
+            label: '02 // Coordinates',
+            question: 'Where do we send the blueprints?',
+            subtext: 'Primary email address.',
             component: (
-                <InputField
+                <EditorialInput
                     value={formData.email}
                     onChange={v => setFormData({ ...formData, email: v })}
-                    placeholder="Email address..."
+                    placeholder="hello@future.com"
                     type="email"
                     autoFocus
                     onEnter={handleNext}
@@ -176,17 +182,16 @@ const OnboardingFlow = () => {
         },
         {
             id: 'vision',
-            label: 'OBJECTIVE',
-            question: 'What reality are you trying to build?',
-            subtext: 'Briefly describe the digital or physical ecosystem you envision.',
+            label: '03 // Objective',
+            question: 'What reality are you building?',
+            subtext: 'Briefly define the digital or physical ecosystem.',
             component: (
-                <div className="w-full max-w-2xl relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-brand-red/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
+                <div className="relative w-full">
                     <textarea
                         value={formData.vision}
                         onChange={e => setFormData({ ...formData, vision: e.target.value })}
-                        placeholder="We envision a platform that..."
-                        className="relative w-full bg-transparent border-b-2 border-brand-sand/30 focus:border-brand-red text-2xl sm:text-3xl md:text-4xl py-3 sm:py-4 px-2 text-brand-white placeholder-brand-sand/30 outline-none transition-all duration-300 font-serif italic min-h-[120px] sm:min-h-[150px] resize-none"
+                        placeholder="We are engineering a system that..."
+                        className="w-full bg-transparent border-b-2 border-brand-red text-4xl sm:text-5xl lg:text-6xl py-6 font-serif italic text-brand-black placeholder-brand-black/20 outline-none transition-all duration-300 min-h-[200px] resize-none"
                         autoFocus
                     />
                 </div>
@@ -194,19 +199,19 @@ const OnboardingFlow = () => {
         },
         {
             id: 'budget',
-            label: 'CAPITAL',
-            question: 'What is the allocated investment?',
-            subtext: 'This allows us to calibrate the depth of our architectural commitment.',
+            label: '04 // Capital Runback',
+            question: 'What is the allocated depth?',
+            subtext: 'Calibrating architectural commitment.',
             component: (
-                <div className="flex flex-wrap gap-4">
-                    {['Seed ($20k - $50k)', 'Venture ($50k - $150k)', 'Enterprise ($150k+)', 'To Be Determined'].map(opt => (
-                        <ChoiceButton
+                <div className="flex flex-wrap gap-4 mt-8">
+                    {['Seed ($20k+)', 'Venture ($50k+)', 'Enterprise ($150k+)', 'Determining'].map(opt => (
+                        <BrutalistChoice
                             key={opt}
                             label={opt}
                             selected={formData.budget === opt}
                             onClick={() => {
                                 setFormData({ ...formData, budget: opt });
-                                setTimeout(handleNext, 300);
+                                setTimeout(handleNext, 400);
                             }}
                         />
                     ))}
@@ -215,19 +220,19 @@ const OnboardingFlow = () => {
         },
         {
             id: 'timeline',
-            label: 'HORIZON',
+            label: '05 // Horizon',
             question: 'When must this materialize?',
-            subtext: 'Specify your anticipated timeline for a market debut.',
+            subtext: 'Anticipated timeline for market deployment.',
             component: (
-                <div className="flex flex-wrap gap-4">
-                    {['Immediate', '1 - 3 Months', '3 - 6 Months', 'Long Range'].map(opt => (
-                        <ChoiceButton
+                <div className="flex flex-wrap gap-4 mt-8">
+                    {['Immediate', 'Q1 (1-3 Mo)', 'Q2 (3-6 Mo)', 'Long Range'].map(opt => (
+                        <BrutalistChoice
                             key={opt}
                             label={opt}
                             selected={formData.timeline === opt}
                             onClick={() => {
                                 setFormData({ ...formData, timeline: opt });
-                                setTimeout(handleNext, 300);
+                                setTimeout(handleNext, 400);
                             }}
                         />
                     ))}
@@ -237,147 +242,130 @@ const OnboardingFlow = () => {
     ];
 
     return (
-        <div className="min-h-screen w-full bg-brand-black text-brand-white overflow-hidden relative font-sans">
-            {/* Background Ambience (Globals handle SVG noise) */}
+        <div className="min-h-screen w-full relative font-sans selection:bg-brand-red selection:text-white flex flex-col items-center justify-center pt-24 pb-12 lg:pt-0">
+            {/* Global Background Overrides for this specific page component */}
+            <div className="fixed inset-0 bg-[#F4F0EB] z-[-2]" />
+            <div className="fixed inset-0 opacity-20 z-[-1] pointer-events-none" style={{ backgroundImage: 'var(--pattern)' }}></div>
 
-            {/* Header / Progress */}
-            <div className="fixed top-0 left-0 w-full p-4 sm:p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none">
-                <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2 text-brand-red font-mono text-xs tracking-widest uppercase">
-                        <Cpu size={12} />
-                        <span>Initiation Protocol v1.0</span>
+            {/* Massive Header Nav */}
+            <div className="fixed top-0 left-0 w-full p-6 md:p-12 z-50 flex justify-between items-start">
+                {step > 0 && step < 6 && (
+                    <div className="flex flex-col gap-2">
+                        <div className="font-mono text-sm tracking-widest uppercase text-brand-red font-bold">
+                            Ignition Protocol [v2.0]
+                        </div>
+                        <div className="font-display text-4xl uppercase tracking-tighter text-brand-black mt-2">
+                            {step} / 5
+                        </div>
                     </div>
-                    {step > 0 && step < 6 && (
-                        <>
-                            {/* Step Counter */}
-                            <div className="font-mono text-sm text-brand-sand/60 mt-1">
-                                Step <span className="text-brand-saffron font-bold">{step}</span> of <span className="text-brand-white">5</span>
-                            </div>
-                            {/* Progress Bar */}
-                            <div className="w-32 sm:w-48 h-1.5 bg-brand-sand/10 rounded-none mt-2 overflow-hidden">
-                                <div
-                                    className="h-full bg-gradient-to-r from-brand-terracotta to-brand-red rounded-none transition-all duration-500 ease-out"
-                                    style={{ width: `${(step / 5) * 100}%` }}
-                                />
-                            </div>
-                            <div className="font-mono text-[10px] text-brand-sand/40 mt-1">
-                                {Math.round((step / 5) * 100)}% complete
-                            </div>
-                        </>
-                    )}
-                </div>
-                <button
-                    onClick={() => navigate('/')}
-                    className="pointer-events-auto text-brand-sand/60 hover:text-brand-red font-mono text-xs uppercase tracking-widest transition-colors flex items-center gap-2"
-                >
-                    <span>Exit</span>
-                    <span className="text-brand-sand/40">×</span>
+                )}
+                {step === 0 && <div />}
+
+                <button onClick={() => navigate('/')} className="group flex items-center justify-center w-16 h-16 border-2 border-brand-black hover:bg-brand-red hover:border-brand-red transition-all duration-300 rounded-full">
+                    <X size={24} className="text-brand-black group-hover:text-white transition-colors" />
                 </button>
             </div>
 
-            {/* Main Content Area */}
-            <div className="relative z-10 w-full h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-12 lg:p-24">
+            <div className="w-full max-w-[90rem] mx-auto px-6 md:px-12 relative z-10 lg:pl-[10%]">
                 <AnimatePresence mode="wait">
 
-                    {/* STEP 0: INTRO */}
+                    {/* STEP 0: THE AWWWARDS SPLASH */}
                     {step === 0 && (
                         <motion.div
                             key="intro"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
-                            className="text-center space-y-8"
+                            initial={{ opacity: 0, filter: 'blur(20px)' }}
+                            animate={{ opacity: 1, filter: 'blur(0px)' }}
+                            exit={{ opacity: 0, y: -100 }}
+                            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                            className="flex flex-col items-start"
                         >
-                            <div className="relative w-24 h-24 mx-auto mb-8">
-                                <div className="absolute inset-0 border-2 border-brand-red/30 rounded-full animate-ping" />
-                                <div className="absolute inset-0 border border-brand-red rounded-full animate-pulse" />
-                                <div className="absolute inset-0 flex items-center justify-center text-brand-red">
-                                    <Zap size={32} />
-                                </div>
-                            </div>
-
-                            <div className="font-mono text-brand-saffron text-lg tracking-[0.5em] uppercase">
-                                <ScrambleText text={
-                                    introPhase === 0 ? "Initializing..." :
-                                        introPhase === 1 ? "Establishing Uplink..." :
-                                            "Connection Secure"
-                                } />
+                            <h1 className="font-display text-[15vw] leading-[0.85] uppercase tracking-tighter text-brand-red mix-blend-multiply">
+                                <EditorialScramble text="IGNITION" />
+                                <br />
+                                <span className="text-brand-black">PROTOCOL</span>
+                            </h1>
+                            <div className="mt-12 font-mono text-xl tracking-widest uppercase text-brand-black/60 border-l-4 border-brand-red pl-6">
+                                {introPhase === 0 ? "Establishing parameters..." : "Initiating sequence..."}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEPS 1-5: QUESTIONS */}
+                    {/* STEPS 1-5: THE QUESTIONNAIRE */}
                     {step > 0 && step < 6 && (
                         <motion.div
                             key={`step-${step}`}
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50, filter: 'blur(5px)' }}
-                            transition={{ duration: 0.5, ease: "circOut" }}
-                            className="w-full max-w-4xl"
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -50 }}
+                            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+                            className="w-full max-w-5xl"
                         >
-                            <div className="mb-8 flex items-center gap-3 text-brand-saffron font-mono text-sm uppercase tracking-widest">
-                                <span className="w-2 h-2 bg-brand-red rounded-none animate-pulse" />
-                                <ScrambleText text={questions[step - 1].label} />
+                            <div className="mb-4 font-mono text-sm uppercase tracking-widest text-brand-red font-bold">
+                                {questions[step - 1].label}
                             </div>
 
-                            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tighter text-brand-white mb-3 sm:mb-6 leading-none">
+                            <h2 className="font-display text-[8vw] lg:text-[6rem] uppercase tracking-tighter text-brand-black mb-6 leading-[0.9]">
                                 {questions[step - 1].question}
                             </h2>
 
-                            <p className="font-serif italic text-brand-sand/80 text-2xl md:text-3xl mb-12 font-light">
-                                {questions[step - 1].subtext}
+                            <p className="font-mono text-lg lg:text-xl text-brand-black/50 mb-16 uppercase tracking-widest">
+                                [ {questions[step - 1].subtext} ]
                             </p>
 
                             <div className="mb-16">
                                 {questions[step - 1].component}
                             </div>
 
-                            <div className="flex items-center justify-between border-t border-brand-red/30 pt-8">
+                            <div className="flex flex-col sm:flex-row items-center justify-between gap-8 pt-12 border-t-2 border-brand-black/10">
                                 <button
                                     onClick={() => setStep(s => s - 1)}
-                                    className={`text-brand-sand/60 hover:text-brand-saffron font-mono text-sm uppercase tracking-widest transition-colors ${step === 1 ? 'opacity-0 pointer-events-none' : ''}`}
+                                    className={`font-mono text-sm uppercase tracking-widest hover:text-brand-red transition-colors ${step === 1 ? 'opacity-0 pointer-events-none' : 'text-brand-black/40'}`}
                                 >
-                                    ← Back
+                                    [ Return ]
                                 </button>
 
                                 <button
                                     onClick={handleNext}
-                                    className="group flex items-center gap-3 sm:gap-4 bg-transparent border-2 border-brand-red text-brand-red px-6 sm:px-8 md:px-10 py-3 sm:py-4 font-mono text-lg uppercase tracking-widest hover:bg-brand-red hover:text-brand-white transition-all duration-300"
+                                    disabled={isSubmitting}
+                                    className="group flexitems-center gap-6 bg-brand-red text-white p-6 lg:p-8 rounded-full hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-between sm:justify-center relative overflow-hidden"
                                 >
-                                    <span>{step === 5 ? 'TRANSMIT' : 'CONTINUE'}</span>
-                                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                    <div className="absolute inset-0 bg-brand-black translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                                    <span className="relative z-10 font-display text-3xl uppercase tracking-tighter mt-1">
+                                        {step === 5 ? (isSubmitting ? 'Transmitting...' : 'Initiate') : 'Next Vector'}
+                                    </span>
+                                    <ArrowRight size={32} className="relative z-10 group-hover:translate-x-2 transition-transform duration-300" />
                                 </button>
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 6: OUTRO */}
+                    {/* STEP 6: THE OUTRO */}
                     {step === 6 && (
                         <motion.div
                             key="outro"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="text-center max-w-2xl"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="flex flex-col items-start"
                         >
-                            <div className="w-20 h-20 bg-brand-red/10 flex items-center justify-center mx-auto mb-8 text-brand-red border border-brand-red/30">
-                                <Shield size={40} />
+                            <div className="font-mono text-brand-red mb-8 tracking-widest uppercase text-xl animate-pulse">
+                                [ Transmission Received ]
                             </div>
 
-                            <h2 className="font-display uppercase tracking-tighter text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-brand-white mb-4 sm:mb-6 leading-none">
-                                Transmission Received.
+                            <h2 className="font-display text-[12vw] leading-[0.85] uppercase tracking-tighter text-brand-black mb-12">
+                                YOUR <br />
+                                <span className="text-brand-red">COORDINATES</span> <br />
+                                ARE SET.
                             </h2>
 
-                            <p className="font-serif italic text-brand-sand/80 text-2xl md:text-3xl leading-relaxed mb-12">
-                                Your coordinates have been logged. <br />
-                                Our architects are analyzing your parameters. <br />
-                                <span className="text-brand-saffron block mt-4 font-mono not-italic text-sm tracking-widest uppercase">Standby for contact.</span>
+                            <p className="font-serif italic text-3xl lg:text-5xl text-brand-black/70 mb-16">
+                                Our architects will map the next trajectory. Standby.
                             </p>
 
                             <button
                                 onClick={() => navigate('/')}
-                                className="px-8 py-4 border-2 border-brand-red hover:bg-brand-red hover:text-brand-white text-brand-red font-mono text-sm uppercase tracking-widest transition-all duration-300"
+                                className="group relative overflow-hidden border-2 border-brand-black bg-transparent text-brand-black px-12 py-6 font-display text-3xl uppercase tracking-tighter transition-colors hover:text-white"
                             >
+                                <div className="absolute inset-0 bg-brand-red -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out z-[-1]" />
                                 Return to Base
                             </button>
                         </motion.div>
