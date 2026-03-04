@@ -41,7 +41,7 @@ const ProcessTimeline = () => {
                     <span className="font-mono text-xs text-brand-saffron tracking-[0.3em] uppercase mb-4 block">
                         <ScrambleText text="THE VALIDATION LOOP" />
                     </span>
-                    <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[7vw] text-brand-white uppercase leading-[0.85] tracking-normal relative z-10">
+                    <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[7vw] text-brand-white uppercase leading-[0.85] tracking-normal relative z-10">
                         Research First. <br /> <span className="font-serif italic font-light text-brand-terracotta lowercase tracking-normal leading-[1.1] block mt-4">then build.</span>
                     </h2>
                 </div>
@@ -71,8 +71,8 @@ const ProcessTimeline = () => {
                                                 <ScrambleText text={`PHASE ${phase.id} // ${phase.name}`} />
                                             </span>
                                         </div>
-                                        <h3 className="font-display uppercase tracking-widest text-3xl sm:text-4xl md:text-5xl text-brand-white mb-6">{phase.sub}</h3>
-                                        <p className="font-serif italic text-2xl text-brand-sand/80 leading-relaxed">
+                                        <h3 className="font-display uppercase tracking-widest text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-brand-white mb-4 sm:mb-6">{phase.sub}</h3>
+                                        <p className="font-serif italic text-lg sm:text-2xl text-brand-sand/80 leading-relaxed">
                                             "{phase.desc}"
                                         </p>
                                     </motion.div>

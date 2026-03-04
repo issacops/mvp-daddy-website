@@ -25,7 +25,7 @@ const TeamManifest = () => {
             <div className="max-w-[100rem] mx-auto px-4 md:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 md:mb-24 border-b border-brand-red/30 pb-6 sm:pb-8">
                     <div>
-                        <h2 className="font-serif italic text-5xl md:text-7xl text-brand-sand leading-none mb-4">
+                        <h2 className="font-serif italic text-3xl sm:text-5xl md:text-7xl text-brand-sand leading-none mb-4">
                             The <br /><span className="not-italic font-display uppercase tracking-tight text-brand-red">Architects</span>
                         </h2>
                     </div>
@@ -35,7 +35,7 @@ const TeamManifest = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col lg:flex-row h-[1200px] lg:h-[700px] gap-2 border-l border-r border-t border-brand-red/20 p-2 relative bg-[#111]">
+                <div className="flex flex-col lg:flex-row min-h-[600px] sm:h-[1200px] lg:h-[700px] gap-2 border-l border-r border-t border-brand-red/20 p-2 relative bg-[#111]">
                     <div className="absolute inset-0 pointer-events-none opacity-20"
                         style={{
                             backgroundImage: 'linear-gradient(rgba(214,40,40,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(214,40,40,0.2) 1px, transparent 1px)',
@@ -55,7 +55,7 @@ const TeamManifest = () => {
                                     flex: isActive ? 6 : 1,
                                 }}
                                 transition={{ type: 'spring', stiffness: 250, damping: 30 }}
-                                className={`relative h-full overflow-hidden border ${isActive ? 'border-brand-red bg-brand-black' : 'border-brand-red/10 bg-[#0a0a0a] hover:bg-[#151515]'} cursor-none group flex flex-col lg:flex-row`}
+                                className={`relative min-h-[80px] sm:min-h-[100px] lg:min-h-0 h-auto lg:h-full overflow-hidden border ${isActive ? 'border-brand-red bg-brand-black' : 'border-brand-red/10 bg-[#0a0a0a] hover:bg-[#151515]'} cursor-none group flex flex-col lg:flex-row`}
                             >
                                 {/* Background Image with zoom */}
                                 {isActive && op.image && (
@@ -72,15 +72,15 @@ const TeamManifest = () => {
                                 )}
 
                                 {/* Collapsed State */}
-                                <div className={`absolute top-0 left-0 w-full h-full flex flex-row lg:flex-col items-center justify-between p-6 transition-opacity duration-300 ${isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                                    <div className="font-mono text-xl tracking-widest text-brand-sand/50 lg:-rotate-90 origin-left whitespace-nowrap lg:mt-32">
+                                <div className={`absolute top-0 left-0 w-full h-full flex flex-row lg:flex-col items-center justify-between p-4 sm:p-6 transition-opacity duration-300 ${isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                                    <div className="font-mono text-sm sm:text-xl tracking-widest text-brand-sand/50 lg:-rotate-90 origin-left whitespace-nowrap lg:mt-32">
                                         {op.name.toUpperCase()}
                                     </div>
                                     <op.icon size={24} className="text-brand-red/30 group-hover:text-brand-red/60 transition-colors" />
                                 </div>
 
                                 {/* Expanded State */}
-                                <div className={`relative z-20 w-full h-full p-8 md:p-12 lg:p-16 flex flex-col justify-between transition-opacity duration-300 delay-100 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                                <div className={`relative z-20 w-full h-full p-6 sm:p-8 md:p-12 lg:p-16 flex flex-col justify-between transition-opacity duration-300 delay-100 ${isActive ? 'opacity-100 min-h-[400px] sm:min-h-[500px]' : 'opacity-0 pointer-events-none h-0 lg:h-full'}`}>
                                     <div className="flex justify-between items-start">
                                         <div>
                                             <div className="font-mono text-[9px] text-brand-saffron tracking-widest border border-brand-saffron/20 px-2 py-1 rounded inline-block mb-6 bg-brand-black/50 backdrop-blur-sm">
@@ -90,7 +90,7 @@ const TeamManifest = () => {
                                                 initial={{ y: 20, opacity: 0 }}
                                                 animate={{ y: isActive ? 0 : 20, opacity: isActive ? 1 : 0 }}
                                                 transition={{ delay: 0.1, duration: 0.4 }}
-                                                className="font-display uppercase tracking-wider text-5xl md:text-7xl text-brand-white leading-none mb-4 drop-shadow-xl"
+                                                className="font-display uppercase tracking-wider text-3xl sm:text-5xl md:text-7xl text-brand-white leading-none mb-4 drop-shadow-xl"
                                             >
                                                 {op.name}
                                             </motion.h3>

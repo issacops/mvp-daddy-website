@@ -1,8 +1,8 @@
 import React, { useState, Suspense, lazy } from 'react';
 import CustomCursor from './CustomCursor';
 import CommandPalette from './CommandPalette';
-import { motion } from 'framer-motion';
-import { ArrowRight, Star, AlertTriangle, Cpu, Zap, Code2, MessageSquare } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Star, AlertTriangle, Cpu, Zap, Code2, MessageSquare, Menu, X } from 'lucide-react';
 import ScrambleText from './ScrambleText';
 
 // Existing heavy components
@@ -17,7 +17,7 @@ const Marquee: React.FC<{ text: string, className?: string }> = ({ text, classNa
     <div className={`overflow-hidden whitespace-nowrap py-3 border-y border-brand-red ${className}`}>
         <div className="animate-marquee-fast inline-block">
             {[...Array(10)].map((_, i) => (
-                <span key={i} className="mx-4 font-mono text-xl uppercase tracking-widest flex items-center inline-block">
+                <span key={i} className="mx-4 font-mono text-sm sm:text-xl uppercase tracking-widest inline-flex items-center">
                     {text} <Star size={16} className="ml-8 inline-block text-brand-saffron" />
                 </span>
             ))}
@@ -26,13 +26,14 @@ const Marquee: React.FC<{ text: string, className?: string }> = ({ text, classNa
 );
 
 const BentoBox: React.FC<{ children: React.ReactNode, className?: string, dark?: boolean }> = ({ children, className = "", dark = false }) => (
-    <div className={`bento-box${dark ? '-dark' : ''} p-8 md:p-12 relative group transition-all duration-300 ${className}`}>
+    <div className={`bento-box${dark ? '-dark' : ''} p-6 sm:p-8 md:p-12 relative group transition-all duration-300 ${className}`}>
         {children}
     </div>
 );
 
 const HomePage: React.FC = () => {
     const [isFlaring, setIsFlaring] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
         <div
@@ -43,17 +44,18 @@ const HomePage: React.FC = () => {
             <CustomCursor isFlaring={isFlaring} />
             <CommandPalette />
 
-            {/* Solid Header */}
+            {/* Responsive Header */}
             <motion.header
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="fixed top-0 left-0 right-0 z-50 bg-brand-white/90 backdrop-blur-md border-b-2 border-brand-red px-6 py-4"
+                className="fixed top-0 left-0 right-0 z-50 bg-brand-white/90 backdrop-blur-md border-b-2 border-brand-red px-4 sm:px-6 py-3 sm:py-4"
+                style={{ paddingTop: 'max(0.75rem, env(safe-area-inset-top))' }}
             >
                 <div className="max-w-screen-2xl mx-auto flex justify-between items-center">
-                    <div className="font-display text-4xl md:text-5xl tracking-tight text-brand-red uppercase cursor-pointer hover:scale-105 transition-transform" onClick={() => window.location.href = '/'}>
+                    <div className="font-display text-2xl sm:text-4xl md:text-5xl tracking-tight text-brand-red uppercase cursor-pointer hover:scale-105 transition-transform" onClick={() => window.location.href = '/'}>
                         MVP DADDY®
                     </div>
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-3 sm:gap-6">
                         <div className="hidden lg:flex font-mono text-base uppercase tracking-widest gap-8">
                             <a href="#problem" className="hover:text-brand-red hover:underline decoration-2 underline-offset-4 transition-all">The Problem</a>
                             <a href="#stack" className="hover:text-brand-red hover:underline decoration-2 underline-offset-4 transition-all">The Daddy Stack</a>
@@ -62,15 +64,55 @@ const HomePage: React.FC = () => {
                         </div>
                         <a
                             href="/initiate"
-                            className="bg-brand-red text-brand-white px-6 py-2 font-mono text-base uppercase tracking-wider rounded-full hover:bg-brand-black transition-colors flex items-center gap-2 border-2 border-transparent hover:border-brand-red"
+                            className="hidden sm:flex bg-brand-red text-brand-white px-4 sm:px-6 py-2 font-mono text-sm sm:text-base uppercase tracking-wider rounded-full hover:bg-brand-black transition-colors items-center gap-2 border-2 border-transparent hover:border-brand-red"
                         >
-                            Stop Burning Runway <ArrowRight size={18} />
+                            <span className="hidden md:inline">Stop Burning Runway</span>
+                            <span className="md:hidden">Initiate</span>
+                            <ArrowRight size={16} />
                         </a>
+                        {/* Mobile Hamburger */}
+                        <button
+                            className="lg:hidden flex items-center justify-center w-10 h-10 border border-brand-red rounded-full text-brand-red"
+                            onClick={() => setMobileMenuOpen(true)}
+                        >
+                            <Menu size={20} />
+                        </button>
                     </div>
                 </div>
             </motion.header>
 
-            <main className="relative z-20 w-full pt-32 pb-24 px-4 md:px-6 max-w-screen-2xl mx-auto flex flex-col gap-6">
+            {/* Mobile Menu Drawer */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ type: 'tween', duration: 0.3 }}
+                        className="fixed inset-0 z-[100] bg-brand-black text-brand-white flex flex-col p-8"
+                        style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}
+                    >
+                        <div className="flex justify-between items-center mb-16">
+                            <span className="font-display text-3xl text-brand-red uppercase">Menu</span>
+                            <button onClick={() => setMobileMenuOpen(false)} className="w-12 h-12 border border-brand-red rounded-full flex items-center justify-center text-brand-red">
+                                <X size={24} />
+                            </button>
+                        </div>
+                        <nav className="flex flex-col gap-6">
+                            {[{ label: 'The Problem', href: '#problem' }, { label: 'The Daddy Stack', href: '#stack' }, { label: 'Work', href: '#work' }, { label: 'Studio', href: '#studio' }].map(item => (
+                                <a key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className="font-display text-5xl uppercase tracking-tighter hover:text-brand-red transition-colors">
+                                    {item.label}
+                                </a>
+                            ))}
+                        </nav>
+                        <a href="/initiate" className="mt-auto bg-brand-red text-brand-white px-8 py-5 font-display text-2xl uppercase tracking-tight rounded-2xl text-center">
+                            Stop Burning Runway
+                        </a>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <main className="relative z-20 w-full pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 md:px-6 max-w-screen-2xl mx-auto flex flex-col gap-4 sm:gap-6">
 
                 {/* ============================================ */}
                 {/* SECTION 1: THE HERO */}
@@ -79,12 +121,12 @@ const HomePage: React.FC = () => {
                     <BentoBox className="lg:col-span-8 bg-brand-red text-brand-white flex flex-col justify-end min-h-[50vh] relative group overflow-hidden">
                         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M29.5 0h1v29.5h29.5v1H30.5V60h-1V30.5H0v-1h29.5V0z\' fill=\'%23161412\' fill-opacity=\'0.08\' fill-rule=\'evenodd\'/%3E%3C/svg%3E')] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 mix-blend-multiply z-0 pointer-events-none" />
                         <div className="relative z-10 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-2">
-                            <span className="font-serif italic text-3xl md:text-5xl text-brand-sand/90 mb-6 block">Stop building naked MVPs.</span>
-                            <h1 className="font-display text-5xl md:text-6xl lg:text-[7vw] leading-[0.85] uppercase tracking-normal mb-6 selection:bg-brand-black text-brand-white">
+                            <span className="font-serif italic text-xl sm:text-3xl md:text-5xl text-brand-sand/90 mb-4 sm:mb-6 block">Stop building naked MVPs.</span>
+                            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[7vw] leading-[0.85] uppercase tracking-normal mb-4 sm:mb-6 selection:bg-brand-black text-brand-white">
                                 <ScrambleText text="WE ENGINEER" /> <br /> GTM-READY TECH STACKS.
                             </h1>
-                            <p className="font-mono text-base md:text-lg max-w-2xl mt-2 bg-brand-black text-brand-sand inline-block px-4 py-3 uppercase tracking-widest shadow-[4px_4px_0px_#9D382A]">
-                                RESEARCH → VALIDATE → BUILD. EVERY FEATURE GAUGES CONSUMER INTEREST.
+                            <p className="font-mono text-xs sm:text-base md:text-lg max-w-2xl mt-2 bg-brand-black text-brand-sand inline-block px-3 sm:px-4 py-2 sm:py-3 uppercase tracking-widest shadow-[4px_4px_0px_#9D382A]">
+                                RESEARCH → VALIDATE → BUILD.
                             </p>
                         </div>
                     </BentoBox>
@@ -98,7 +140,7 @@ const HomePage: React.FC = () => {
                                 Validation-First Engineering
                             </div>
                             <div>
-                                <h3 className="font-display text-5xl uppercase leading-none mb-4">Validate <br /> Before You Build.</h3>
+                                <h3 className="font-display text-3xl sm:text-5xl uppercase leading-none mb-4">Validate <br /> Before You Build.</h3>
                                 <p className="font-sans text-xl leading-relaxed">
                                     We don't ship features in the dark. Every release is wired to gauge real consumer interest — so you only scale what the market actually wants.
                                 </p>
@@ -123,14 +165,14 @@ const HomePage: React.FC = () => {
                                 <AlertTriangle size={18} className="text-brand-red" />
                                 <span className="font-mono text-sm text-brand-red uppercase tracking-widest">The Broken Playbook</span>
                             </div>
-                            <h2 className="font-display text-5xl md:text-7xl lg:text-[5.5vw] uppercase tracking-tighter leading-[0.85] mb-10">
+                            <h2 className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-[5.5vw] uppercase tracking-tighter leading-[0.85] mb-8 sm:mb-10">
                                 The Traditional Startup Playbook Is <span className="text-brand-red">Broken.</span>
                             </h2>
-                            <div className="space-y-8 font-serif italic text-2xl md:text-3xl text-brand-sand/80 leading-relaxed">
+                            <div className="space-y-6 sm:space-y-8 font-serif italic text-lg sm:text-2xl md:text-3xl text-brand-sand/80 leading-relaxed">
                                 <p>
                                     You have a brilliant idea. You hire a dev shop. Six months and $50,000 later, they deliver an application. The buttons click. The database hums.
                                 </p>
-                                <p className="text-brand-red not-italic font-display text-4xl md:text-5xl uppercase tracking-tighter">
+                                <p className="text-brand-red not-italic font-display text-2xl sm:text-4xl md:text-5xl uppercase tracking-tighter">
                                     But nobody is buying it.
                                 </p>
                                 <p>
@@ -147,41 +189,41 @@ const HomePage: React.FC = () => {
                 <div id="stack" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-3 mb-8">
                         <span className="font-mono text-sm text-brand-saffron tracking-widest uppercase block mb-4">The MVP Daddy Methodology</span>
-                        <h2 className="font-display text-5xl md:text-7xl lg:text-[5vw] uppercase tracking-tighter leading-[0.85]">
+                        <h2 className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-[5vw] uppercase tracking-tighter leading-[0.85]">
                             Enter The Daddy. <br /><span className="text-brand-red">Research. Validate. Then Build.</span>
                         </h2>
                     </div>
 
-                    <BentoBox className="bg-[#F4F0EB] min-h-[400px] flex flex-col justify-between group hover:bg-brand-terracotta hover:text-brand-white transition-colors duration-500">
+                    <BentoBox className="bg-[#F4F0EB] min-h-[300px] sm:min-h-[400px] flex flex-col justify-between group hover:bg-brand-terracotta hover:text-brand-white transition-colors duration-500">
                         <div className="font-mono text-3xl font-bold border-2 border-brand-black group-hover:border-brand-saffron rounded-full w-16 h-16 flex items-center justify-center">
                             <Cpu size={24} />
                         </div>
                         <div>
-                            <h3 className="font-serif italic text-5xl mb-3 group-hover:text-brand-saffron transition-colors">Research & Strategy.</h3>
+                            <h3 className="font-serif italic text-3xl sm:text-5xl mb-3 group-hover:text-brand-saffron transition-colors">Research & Strategy.</h3>
                             <p className="font-sans text-lg opacity-80">
                                 Before a single line of code is written, we research your market, challenge your assumptions, and map the customer journey. Senior CTO-level strategy that protects your runway from day zero.
                             </p>
                         </div>
                     </BentoBox>
 
-                    <BentoBox className="bg-brand-black text-brand-white min-h-[400px] flex flex-col justify-between">
+                    <BentoBox className="bg-brand-black text-brand-white min-h-[300px] sm:min-h-[400px] flex flex-col justify-between">
                         <div className="font-mono text-3xl font-bold border-2 border-brand-red text-brand-red rounded-full w-16 h-16 flex items-center justify-center">
                             <Code2 size={24} />
                         </div>
                         <div>
-                            <h3 className="font-display text-5xl uppercase mb-3">Validate & Ship.</h3>
+                            <h3 className="font-display text-3xl sm:text-5xl uppercase mb-3">Validate & Ship.</h3>
                             <p className="font-sans text-lg opacity-80">
                                 Every feature we ship is a hypothesis. We build lean and instrument everything — tracking consumer interest, engagement, and intent so you know what's working before you double down.
                             </p>
                         </div>
                     </BentoBox>
 
-                    <BentoBox className="bg-brand-red text-brand-white min-h-[400px] flex flex-col justify-between relative overflow-hidden">
+                    <BentoBox className="bg-brand-red text-brand-white min-h-[300px] sm:min-h-[400px] flex flex-col justify-between relative overflow-hidden">
                         <div className="font-mono text-3xl font-bold border-2 border-brand-white rounded-full w-16 h-16 flex items-center justify-center">
                             <Zap size={24} />
                         </div>
                         <div>
-                            <h3 className="font-display text-5xl uppercase mb-3">Wired-Up Growth.</h3>
+                            <h3 className="font-display text-3xl sm:text-5xl uppercase mb-3">Wired-Up Growth.</h3>
                             <p className="font-sans text-lg opacity-90">
                                 Your product isn't an island. We wire it into analytics, CRM, and feedback loops from the start — so every feature shipped generates real consumer interest data that feeds your next decision.
                             </p>
@@ -195,7 +237,7 @@ const HomePage: React.FC = () => {
                 <div className="mt-16">
                     <div className="mb-12">
                         <span className="font-mono text-sm text-brand-saffron tracking-widest uppercase block mb-4">The Continuous Validation Stack (2026 Edition)</span>
-                        <h2 className="font-display text-4xl md:text-6xl uppercase tracking-tighter leading-[0.85]">
+                        <h2 className="font-display text-2xl sm:text-4xl md:text-6xl uppercase tracking-tighter leading-[0.85]">
                             Every Feature Ships With <span className="text-brand-red">A Thesis.</span>
                         </h2>
                     </div>
@@ -225,8 +267,8 @@ const HomePage: React.FC = () => {
                 {/* ============================================ */}
                 <div id="work" className="mt-24 space-y-6">
                     <h2 className="text-center mb-16 leading-none relative z-10">
-                        <span className="font-serif italic text-5xl md:text-[5vw] text-brand-terracotta/80 block mb-6">Applied</span>
-                        <span className="font-display text-6xl md:text-[9vw] uppercase tracking-normal text-brand-red decoration-4">Research</span>
+                        <span className="font-serif italic text-3xl sm:text-5xl md:text-[5vw] text-brand-terracotta/80 block mb-4 sm:mb-6">Applied</span>
+                        <span className="font-display text-4xl sm:text-6xl md:text-[9vw] uppercase tracking-normal text-brand-red decoration-4">Research</span>
                     </h2>
 
                     <BentoBox dark className="p-0 border-0 bg-transparent relative">
@@ -255,13 +297,13 @@ const HomePage: React.FC = () => {
                 <div id="studio" className="w-full relative z-20">
                     <div className="mb-16 max-w-4xl">
                         <span className="font-mono text-sm text-brand-saffron tracking-widest uppercase block mb-4">Founder Authenticity</span>
-                        <h2 className="font-display text-5xl md:text-7xl uppercase tracking-tighter leading-[0.85] mb-8">
+                        <h2 className="font-display text-3xl sm:text-5xl md:text-7xl uppercase tracking-tighter leading-[0.85] mb-6 sm:mb-8">
                             Why <span className="text-brand-red">"MVP Daddy"?</span>
                         </h2>
-                        <p className="font-serif italic text-2xl md:text-3xl text-brand-black/70 leading-relaxed mb-6">
+                        <p className="font-serif italic text-lg sm:text-2xl md:text-3xl text-brand-black/70 leading-relaxed mb-4 sm:mb-6">
                             Because the tech ecosystem is drowning in sanitized corporate speak and faceless agencies. People follow people, not logos.
                         </p>
-                        <p className="font-sans text-lg text-brand-black/60 leading-relaxed">
+                        <p className="font-sans text-base sm:text-lg text-brand-black/60 leading-relaxed">
                             When you partner with us, you get direct access to the founders. We take a fiercely protective approach to your startup's technical architecture and budget. We will tell you directly when your feature idea is a waste of capital. We force you to focus on revenue-generating activities. We are the adults in the room when it comes to your code and your pipeline.
                         </p>
                     </div>
@@ -275,13 +317,13 @@ const HomePage: React.FC = () => {
                 {/* ============================================ */}
                 <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="flex flex-col justify-center">
-                        <h2 className="font-display text-6xl md:text-8xl lg:text-9xl uppercase tracking-tighter leading-[0.8] mb-6">
+                        <h2 className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl uppercase tracking-tighter leading-[0.8] mb-4 sm:mb-6">
                             Ready To <br /><span className="text-brand-red">Build A System?</span>
                         </h2>
-                        <p className="font-serif italic text-2xl text-brand-black/60 leading-relaxed mb-8 max-w-lg">
+                        <p className="font-serif italic text-lg sm:text-2xl text-brand-black/60 leading-relaxed mb-6 sm:mb-8 max-w-lg">
                             Stop guessing. Stop piecing together fragmented tools. Let's architect a unified system that scales from Seed to Series B.
                         </p>
-                        <a href="/initiate" className="inline-block w-fit bg-brand-black text-brand-white px-12 py-6 font-display text-3xl uppercase tracking-wide hover:bg-brand-red transition-all duration-300 rounded-2xl border-2 border-brand-black hover:border-brand-red shadow-[8px_8px_0px_#E70000]">
+                        <a href="/initiate" className="inline-block w-fit bg-brand-black text-brand-white px-6 sm:px-12 py-4 sm:py-6 font-display text-xl sm:text-3xl uppercase tracking-wide hover:bg-brand-red transition-all duration-300 rounded-2xl border-2 border-brand-black hover:border-brand-red shadow-[4px_4px_0px_#E70000] sm:shadow-[8px_8px_0px_#E70000]">
                             CLAIM YOUR BLUEPRINT
                         </a>
                         <p className="font-mono text-xs text-brand-black/40 uppercase tracking-widest mt-4 max-w-md">
@@ -292,7 +334,7 @@ const HomePage: React.FC = () => {
                         <div className="absolute inset-0 opacity-20 mix-blend-multiply pointer-events-none">
                             <LifeJourney isFlaring={isFlaring} onFinale={() => { }} />
                         </div>
-                        <div className="relative z-10 font-mono text-brand-white text-center text-xl uppercase tracking-widest max-w-sm">
+                        <div className="relative z-10 font-mono text-brand-white text-center text-sm sm:text-xl uppercase tracking-widest max-w-sm px-4">
                             <ScrambleText text="ENGINEERED EXCLUSIVELY FOR SEED & SERIES A NON-TECHNICAL FOUNDERS." />
                         </div>
                     </BentoBox>
@@ -306,7 +348,7 @@ const HomePage: React.FC = () => {
                         <span className="w-3 h-3 bg-brand-red rounded-full animate-pulse"></span>
                         SYSTEM ONLINE
                     </div>
-                    <div className="flex gap-8">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-8 text-center">
                         <a href="mailto:hello@mvpdaddy.com" className="hover:text-brand-red transition-colors">HELLO@MVPDADDY.COM</a>
                         <span>© 2026 MVP DADDY LABS®</span>
                     </div>

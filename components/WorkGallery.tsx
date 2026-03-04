@@ -39,7 +39,7 @@ const Card: React.FC<CardProps> = ({ p, i }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="group relative flex flex-col lg:flex-row border border-brand-red bg-brand-black mb-16 lg:mb-32 overflow-hidden min-h-[600px] bento-box shadow-[0_0_40px_rgba(214,40,40,0.05)] hover:shadow-[0_0_60px_rgba(214,40,40,0.15)] transition-shadow duration-700"
+            className="group relative flex flex-col lg:flex-row border border-brand-red bg-brand-black mb-8 sm:mb-16 lg:mb-32 overflow-hidden min-h-[400px] sm:min-h-[600px] bento-box shadow-[0_0_40px_rgba(214,40,40,0.05)] hover:shadow-[0_0_60px_rgba(214,40,40,0.15)] transition-shadow duration-700"
         >
             {/* Image Parallax Section (Left - 55%) */}
             <div className="w-full lg:w-[55%] relative overflow-hidden border-b lg:border-b-0 lg:border-r border-brand-red bg-[#111]">
@@ -72,7 +72,7 @@ const Card: React.FC<CardProps> = ({ p, i }) => {
                 )}
 
                 {/* Huge Index Number (Studio Linear impact) */}
-                <div className="absolute bottom-[-5%] left-[-2%] z-20 font-display text-[200px] leading-none text-brand-white/5 mix-blend-screen group-hover:text-brand-saffron/20 transition-colors duration-700 pointer-events-none select-none">
+                <div className="absolute bottom-[-5%] left-[-2%] z-20 font-display text-[100px] sm:text-[200px] leading-none text-brand-white/5 mix-blend-screen group-hover:text-brand-saffron/20 transition-colors duration-700 pointer-events-none select-none">
                     0{i + 1}
                 </div>
 
@@ -86,7 +86,7 @@ const Card: React.FC<CardProps> = ({ p, i }) => {
             <div className="w-full lg:w-[45%] flex flex-col relative bg-brand-black group-hover:bg-[#151311] transition-colors duration-700 z-10">
 
                 {/* 1. Top Header Component */}
-                <div className="p-8 md:p-12 border-b border-brand-red relative overflow-hidden">
+                <div className="p-6 sm:p-8 md:p-12 border-b border-brand-red relative overflow-hidden">
                     {/* Hover: Cultural Texture (Jaali Pattern) Reveal */}
                     <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-[0.15] transition-opacity duration-700"
                         style={{ backgroundImage: 'var(--pattern)' }}
@@ -105,7 +105,7 @@ const Card: React.FC<CardProps> = ({ p, i }) => {
                         </div>
 
                         {/* Implemented Anton font for massive impact per Studio Linear */}
-                        <h3 className="font-display uppercase tracking-wider text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.85] text-brand-white mb-4 group-hover:text-brand-red transition-colors duration-500">
+                        <h3 className="font-display uppercase tracking-wider text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.85] text-brand-white mb-4 group-hover:text-brand-red transition-colors duration-500">
                             {p.name}
                         </h3>
                         <p className="font-mono text-sm uppercase tracking-[0.3em] text-brand-sand/50">
@@ -115,7 +115,7 @@ const Card: React.FC<CardProps> = ({ p, i }) => {
                 </div>
 
                 {/* 2. Middle Details Component */}
-                <div className="flex-1 p-8 md:p-12 flex flex-col justify-center relative">
+                <div className="flex-1 p-6 sm:p-8 md:p-12 flex flex-col justify-center relative">
                     <div className="space-y-12">
                         <div className="relative pl-6 border-l-2 border-brand-sand/20 group-hover:border-brand-saffron transition-colors duration-500">
                             <span className="font-mono text-[10px] text-brand-terracotta uppercase block mb-3 tracking-[0.2em]">[ THE_INQUIRY ]</span>
@@ -161,7 +161,7 @@ const WorkGallery = () => {
                 <div className="mb-20 md:mb-32 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-brand-red/30 pb-8">
                     <div>
                         <div className="font-mono text-sm text-brand-saffron mb-4 tracking-widest">[ 03 ]</div>
-                        <h2 className="font-display text-5xl md:text-7xl uppercase tracking-tighter text-brand-black leading-none">
+                        <h2 className="font-display text-3xl sm:text-5xl md:text-7xl uppercase tracking-tighter text-brand-black leading-none">
                             Applied <br />
                             <span className="text-brand-red">Research</span>
                         </h2>

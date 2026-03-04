@@ -89,6 +89,14 @@
       width: 100vw;
       /* Apply authentic texture */
       background-image: var(--pattern);
+      /* Safe area padding for iPhones with notch/dynamic island */
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .bento-box,
