@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Check, Terminal, Cpu, Shield, Zap } from 'lucide-react';
@@ -39,7 +40,7 @@ const InputField = ({
     onEnter?: () => void;
 }) => (
     <div className="relative group w-full max-w-2xl">
-        <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
+        <div className="absolute -inset-1 bg-gradient-to-r from-brand-red/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
         <input
             type={type}
             value={value}
@@ -47,33 +48,29 @@ const InputField = ({
             onKeyDown={(e) => e.key === 'Enter' && onEnter && onEnter()}
             placeholder={placeholder}
             autoFocus={autoFocus}
-            className="relative w-full bg-black/50 border-b-2 border-white/10 focus:border-accent text-lg sm:text-xl md:text-2xl lg:text-4xl py-3 sm:py-4 px-2 text-white placeholder-white/20 outline-none transition-all duration-300 font-sans font-light"
+            className="relative w-full bg-transparent border-b-2 border-brand-sand/30 focus:border-brand-red text-3xl sm:text-4xl md:text-5xl py-3 sm:py-4 px-2 text-brand-white placeholder-brand-sand/30 outline-none transition-all duration-300 font-serif italic"
         />
         <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Terminal size={20} className="text-accent/50" />
+            <Terminal size={20} className="text-brand-red/50" />
         </div>
     </div>
 );
 
-const ChoiceButton = ({
-    label,
-    selected,
-    onClick
-}: {
+const ChoiceButton: React.FC<{
     label: string;
     selected: boolean;
     onClick: () => void;
-}) => (
+}> = ({ label, selected, onClick }) => (
     <button
         onClick={onClick}
-        className={`group relative px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 text-left transition-all duration-300 w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] overflow-hidden border ${selected ? 'border-accent bg-accent/10' : 'border-white/10 hover:border-white/30 bg-white/5'}`}
+        className={`group relative px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 text-left transition-all duration-300 w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] overflow-hidden border ${selected ? 'border-brand-red bg-brand-red/10' : 'border-brand-sand/20 hover:border-brand-saffron bg-brand-white/5'}`}
     >
-        <div className={`absolute inset-0 bg-accent/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out ${selected ? 'translate-y-0' : ''}`} />
-        <span className={`relative font-mono text-sm uppercase tracking-widest ${selected ? 'text-accent' : 'text-white/60 group-hover:text-white'}`}>
+        <div className={`absolute inset-0 bg-brand-red/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out ${selected ? 'translate-y-0' : ''}`} />
+        <span className={`relative font-mono text-lg uppercase tracking-widest ${selected ? 'text-brand-red' : 'text-brand-sand/60 group-hover:text-brand-sand'}`}>
             {label}
         </span>
         {selected && (
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-accent">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-red">
                 <Check size={16} />
             </div>
         )}
@@ -148,14 +145,14 @@ const OnboardingFlow = () => {
     const questions = [
         {
             id: 'identity',
-            label: 'IDENTIFICATION',
-            question: 'Who is initiating this protocol?',
-            subtext: 'Enter your name or alias.',
+            label: 'INTRODUCTION',
+            question: 'Who is initiating the inquiry?',
+            subtext: 'Enter your name or the name of your organization.',
             component: (
                 <InputField
                     value={formData.name}
                     onChange={v => setFormData({ ...formData, name: v })}
-                    placeholder="John Doe"
+                    placeholder="Enter Name..."
                     autoFocus
                     onEnter={handleNext}
                 />
@@ -163,14 +160,14 @@ const OnboardingFlow = () => {
         },
         {
             id: 'signal',
-            label: 'SIGNAL FREQUENCY',
-            question: 'Where should we transmit the blueprints?',
-            subtext: 'Secure email address required.',
+            label: 'CORRESPONDENCE',
+            question: 'Where should we direct our response?',
+            subtext: 'Provide an email address for direct communication.',
             component: (
                 <InputField
                     value={formData.email}
                     onChange={v => setFormData({ ...formData, email: v })}
-                    placeholder="name@company.com"
+                    placeholder="Email address..."
                     type="email"
                     autoFocus
                     onEnter={handleNext}
@@ -180,16 +177,16 @@ const OnboardingFlow = () => {
         {
             id: 'vision',
             label: 'OBJECTIVE',
-            question: 'What are we building?',
-            subtext: 'Briefly describe your vision or problem statement.',
+            question: 'What reality are you trying to build?',
+            subtext: 'Briefly describe the digital or physical ecosystem you envision.',
             component: (
                 <div className="w-full max-w-2xl relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
+                    <div className="absolute -inset-1 bg-gradient-to-r from-brand-red/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
                     <textarea
                         value={formData.vision}
                         onChange={e => setFormData({ ...formData, vision: e.target.value })}
-                        placeholder="I want to disrupt..."
-                        className="relative w-full bg-black/50 border-b-2 border-white/10 focus:border-accent text-base sm:text-lg md:text-xl lg:text-2xl py-3 sm:py-4 px-2 text-white placeholder-white/20 outline-none transition-all duration-300 font-sans font-light min-h-[120px] sm:min-h-[150px] resize-none"
+                        placeholder="We envision a platform that..."
+                        className="relative w-full bg-transparent border-b-2 border-brand-sand/30 focus:border-brand-red text-2xl sm:text-3xl md:text-4xl py-3 sm:py-4 px-2 text-brand-white placeholder-brand-sand/30 outline-none transition-all duration-300 font-serif italic min-h-[120px] sm:min-h-[150px] resize-none"
                         autoFocus
                     />
                 </div>
@@ -197,19 +194,18 @@ const OnboardingFlow = () => {
         },
         {
             id: 'budget',
-            label: 'RESOURCE ALLOCATION',
-            question: 'What is the deployment budget?',
-            subtext: 'Select the appropriate tier.',
+            label: 'CAPITAL',
+            question: 'What is the allocated investment?',
+            subtext: 'This allows us to calibrate the depth of our architectural commitment.',
             component: (
                 <div className="flex flex-wrap gap-4">
-                    {['< $5k', '$5k - $15k', '$15k - $50k', '$50k +'].map(opt => (
+                    {['Seed ($20k - $50k)', 'Venture ($50k - $150k)', 'Enterprise ($150k+)', 'To Be Determined'].map(opt => (
                         <ChoiceButton
                             key={opt}
                             label={opt}
                             selected={formData.budget === opt}
                             onClick={() => {
                                 setFormData({ ...formData, budget: opt });
-                                // Auto advance after selection for smoother flow
                                 setTimeout(handleNext, 300);
                             }}
                         />
@@ -219,12 +215,12 @@ const OnboardingFlow = () => {
         },
         {
             id: 'timeline',
-            label: 'VELOCITY',
-            question: 'When do we launch?',
-            subtext: 'Time-to-market requirements.',
+            label: 'HORIZON',
+            question: 'When must this materialize?',
+            subtext: 'Specify your anticipated timeline for a market debut.',
             component: (
                 <div className="flex flex-wrap gap-4">
-                    {['Yesterday (ASAP)', '1 Month', '3 Months', 'Flexible'].map(opt => (
+                    {['Immediate', '1 - 3 Months', '3 - 6 Months', 'Long Range'].map(opt => (
                         <ChoiceButton
                             key={opt}
                             label={opt}
@@ -241,33 +237,30 @@ const OnboardingFlow = () => {
     ];
 
     return (
-        <div className="min-h-screen w-full bg-[#0a0a0a] text-white overflow-hidden relative font-sans">
-            {/* Background Ambience */}
-            <div className="fixed inset-0 bg-[radial-gradient(circle_at_center,_#1a1a1a_0%,_#000000_100%)] z-0" />
-            <div className="fixed inset-0 opacity-20 pointer-events-none holo-grid z-0" />
-            <div className="fixed inset-0 opacity-5 pointer-events-none film-grain z-0" />
+        <div className="min-h-screen w-full bg-brand-black text-brand-white overflow-hidden relative font-sans">
+            {/* Background Ambience (Globals handle SVG noise) */}
 
             {/* Header / Progress */}
             <div className="fixed top-0 left-0 w-full p-4 sm:p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none">
                 <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2 text-accent/50 font-mono text-xs tracking-widest uppercase">
+                    <div className="flex items-center gap-2 text-brand-red font-mono text-xs tracking-widest uppercase">
                         <Cpu size={12} />
                         <span>Initiation Protocol v1.0</span>
                     </div>
                     {step > 0 && step < 6 && (
                         <>
                             {/* Step Counter */}
-                            <div className="font-mono text-sm text-white/60 mt-1">
-                                Step <span className="text-accent font-bold">{step}</span> of <span className="text-white/80">5</span>
+                            <div className="font-mono text-sm text-brand-sand/60 mt-1">
+                                Step <span className="text-brand-saffron font-bold">{step}</span> of <span className="text-brand-white">5</span>
                             </div>
                             {/* Progress Bar */}
-                            <div className="w-32 sm:w-48 h-1.5 bg-white/10 rounded-full mt-2 overflow-hidden">
+                            <div className="w-32 sm:w-48 h-1.5 bg-brand-sand/10 rounded-none mt-2 overflow-hidden">
                                 <div
-                                    className="h-full bg-gradient-to-r from-accent to-orange-400 rounded-full transition-all duration-500 ease-out"
+                                    className="h-full bg-gradient-to-r from-brand-terracotta to-brand-red rounded-none transition-all duration-500 ease-out"
                                     style={{ width: `${(step / 5) * 100}%` }}
                                 />
                             </div>
-                            <div className="font-mono text-[10px] text-white/40 mt-1">
+                            <div className="font-mono text-[10px] text-brand-sand/40 mt-1">
                                 {Math.round((step / 5) * 100)}% complete
                             </div>
                         </>
@@ -275,10 +268,10 @@ const OnboardingFlow = () => {
                 </div>
                 <button
                     onClick={() => navigate('/')}
-                    className="pointer-events-auto text-white/40 hover:text-white font-mono text-xs uppercase tracking-widest transition-colors flex items-center gap-2"
+                    className="pointer-events-auto text-brand-sand/60 hover:text-brand-red font-mono text-xs uppercase tracking-widest transition-colors flex items-center gap-2"
                 >
                     <span>Exit</span>
-                    <span className="text-white/20">×</span>
+                    <span className="text-brand-sand/40">×</span>
                 </button>
             </div>
 
@@ -296,14 +289,14 @@ const OnboardingFlow = () => {
                             className="text-center space-y-8"
                         >
                             <div className="relative w-24 h-24 mx-auto mb-8">
-                                <div className="absolute inset-0 border-2 border-accent/30 rounded-full animate-ping" />
-                                <div className="absolute inset-0 border border-accent rounded-full animate-pulse" />
-                                <div className="absolute inset-0 flex items-center justify-center text-accent">
+                                <div className="absolute inset-0 border-2 border-brand-red/30 rounded-full animate-ping" />
+                                <div className="absolute inset-0 border border-brand-red rounded-full animate-pulse" />
+                                <div className="absolute inset-0 flex items-center justify-center text-brand-red">
                                     <Zap size={32} />
                                 </div>
                             </div>
 
-                            <div className="font-mono text-accent text-sm tracking-[0.5em] uppercase">
+                            <div className="font-mono text-brand-saffron text-lg tracking-[0.5em] uppercase">
                                 <ScrambleText text={
                                     introPhase === 0 ? "Initializing..." :
                                         introPhase === 1 ? "Establishing Uplink..." :
@@ -323,16 +316,16 @@ const OnboardingFlow = () => {
                             transition={{ duration: 0.5, ease: "circOut" }}
                             className="w-full max-w-4xl"
                         >
-                            <div className="mb-8 flex items-center gap-3 text-accent/60 font-mono text-xs uppercase tracking-widest">
-                                <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                            <div className="mb-8 flex items-center gap-3 text-brand-saffron font-mono text-sm uppercase tracking-widest">
+                                <span className="w-2 h-2 bg-brand-red rounded-none animate-pulse" />
                                 <ScrambleText text={questions[step - 1].label} />
                             </div>
 
-                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 tracking-tight leading-tight">
+                            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tighter text-brand-white mb-3 sm:mb-6 leading-none">
                                 {questions[step - 1].question}
                             </h2>
 
-                            <p className="text-white/40 text-lg mb-12 font-light">
+                            <p className="font-serif italic text-brand-sand/80 text-2xl md:text-3xl mb-12 font-light">
                                 {questions[step - 1].subtext}
                             </p>
 
@@ -340,17 +333,17 @@ const OnboardingFlow = () => {
                                 {questions[step - 1].component}
                             </div>
 
-                            <div className="flex items-center justify-between border-t border-white/5 pt-8">
+                            <div className="flex items-center justify-between border-t border-brand-red/30 pt-8">
                                 <button
                                     onClick={() => setStep(s => s - 1)}
-                                    className={`text-white/40 hover:text-white font-mono text-xs uppercase tracking-widest transition-colors ${step === 1 ? 'opacity-0 pointer-events-none' : ''}`}
+                                    className={`text-brand-sand/60 hover:text-brand-saffron font-mono text-sm uppercase tracking-widest transition-colors ${step === 1 ? 'opacity-0 pointer-events-none' : ''}`}
                                 >
                                     ← Back
                                 </button>
 
                                 <button
                                     onClick={handleNext}
-                                    className="group flex items-center gap-3 sm:gap-4 bg-white text-black px-5 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base tracking-wide hover:bg-accent hover:text-white transition-all duration-300"
+                                    className="group flex items-center gap-3 sm:gap-4 bg-transparent border-2 border-brand-red text-brand-red px-6 sm:px-8 md:px-10 py-3 sm:py-4 font-mono text-lg uppercase tracking-widest hover:bg-brand-red hover:text-brand-white transition-all duration-300"
                                 >
                                     <span>{step === 5 ? 'TRANSMIT' : 'CONTINUE'}</span>
                                     <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -367,23 +360,23 @@ const OnboardingFlow = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             className="text-center max-w-2xl"
                         >
-                            <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-8 text-accent border border-accent/20">
+                            <div className="w-20 h-20 bg-brand-red/10 flex items-center justify-center mx-auto mb-8 text-brand-red border border-brand-red/30">
                                 <Shield size={40} />
                             </div>
 
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tighter">
+                            <h2 className="font-display uppercase tracking-tighter text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-brand-white mb-4 sm:mb-6 leading-none">
                                 Transmission Received.
                             </h2>
 
-                            <p className="text-white/60 text-xl leading-relaxed mb-12">
+                            <p className="font-serif italic text-brand-sand/80 text-2xl md:text-3xl leading-relaxed mb-12">
                                 Your coordinates have been logged. <br />
                                 Our architects are analyzing your parameters. <br />
-                                <span className="text-accent">Standby for contact.</span>
+                                <span className="text-brand-saffron block mt-4 font-mono not-italic text-sm tracking-widest uppercase">Standby for contact.</span>
                             </p>
 
                             <button
                                 onClick={() => navigate('/')}
-                                className="px-8 py-3 border border-white/10 hover:border-accent hover:text-accent text-white/60 font-mono text-xs uppercase tracking-widest transition-all duration-300"
+                                className="px-8 py-4 border-2 border-brand-red hover:bg-brand-red hover:text-brand-white text-brand-red font-mono text-sm uppercase tracking-widest transition-all duration-300"
                             >
                                 Return to Base
                             </button>

@@ -1,8 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, FileText } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowUpRight, FileText, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import ScrambleText from './ScrambleText';
 
 import { projectData } from '../data/projectData';
 
@@ -11,8 +10,11 @@ const projects = Object.values(projectData).map(p => ({
     name: p.name,
     client: p.domain,
     hypothesis: p.brief,
-    result: p.outcome[0], // Use the first outcome bullet
-    status: p.status.toUpperCase()
+    result: p.outcome[0],
+    status: p.status.toUpperCase(),
+    image: p.image,
+    link: p.link,
+    layers: p.layers
 }));
 
 interface CardProps {
@@ -21,103 +23,111 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ p, i }) => {
-    const divRef = useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [opacity, setOpacity] = useState(0);
+    const cardRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"]
+    });
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!divRef.current) return;
-        const rect = divRef.current.getBoundingClientRect();
-        setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-        setOpacity(1);
-    };
-
-    const handleMouseLeave = () => {
-        setOpacity(0);
-    };
+    const yParams = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
     return (
-        <Link to={`/project/${p.id}`}>
-            <motion.div
-                ref={divRef}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                className="group relative border border-white/5 bg-subtle/10 backdrop-blur-md rounded-sm p-8 overflow-hidden hover:bg-subtle/20 transition-colors duration-500 min-h-[400px] flex flex-col cursor-none"
-            >
-                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-500"
+        <motion.div
+            ref={cardRef}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="group relative flex flex-col lg:flex-row border border-brand-red/30 bg-brand-black mb-16 lg:mb-32 overflow-hidden min-h-[500px]"
+        >
+            {/* Image Section with Parallax */}
+            <div className="w-full lg:w-1/2 relative overflow-hidden border-b lg:border-b-0 lg:border-r border-brand-red/30 min-h-[300px] lg:min-h-full bg-[#111]">
+                {p.image ? (
+                    <motion.div
+                        className="absolute inset-[-20%] w-[140%] h-[140%]"
+                        style={{ y: yParams }}
+                    >
+                        <div className="absolute inset-0 bg-brand-black/20 z-10 group-hover:bg-transparent transition-colors duration-700" />
+                        <img src={p.image} alt={p.name} className="w-full h-full object-cover blur-[2px] group-hover:blur-none grayscale group-hover:grayscale-0 transition-all duration-700 opacity-60 group-hover:opacity-100" />
+                    </motion.div>
+                ) : (
+                    <div className="absolute inset-0 flex items-center justify-center font-mono text-brand-sand/20 overflow-hidden">
+                        <div className="absolute inset-0 pointer-events-none opacity-20 transition-opacity duration-700"
+                            style={{
+                                backgroundImage: 'linear-gradient(rgba(214,40,40,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(214,40,40,0.5) 1px, transparent 1px)',
+                                backgroundSize: '40px 40px'
+                            }}
+                        />
+                        [ NO_VISUAL_DATA ]
+                    </div>
+                )}
+
+                {/* Overlay UI */}
+                <div className="absolute top-4 left-4 z-20 font-mono text-[9px] text-brand-saffron tracking-widest border border-brand-saffron/20 px-2 py-1 bg-brand-black/50 backdrop-blur-sm">
+                    {p.id.toUpperCase()} // DIAGNOSTIC_RECORD
+                </div>
+            </div>
+
+            {/* Content Section */}
+            <div className="w-full lg:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-between relative bg-brand-black group-hover:bg-[#0f0e0d] transition-colors duration-700">
+                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-700"
                     style={{
-                        backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                        backgroundImage: 'linear-gradient(rgba(214,40,40,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(214,40,40,0.1) 1px, transparent 1px)',
                         backgroundSize: '20px 20px'
                     }}
                 />
 
-                <div
-                    className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 mix-blend-overlay"
-                    style={{
-                        opacity,
-                        background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(255, 255, 255, 0.1), transparent 40%)`
-                    }}
-                />
-
-                <div className="relative z-10 flex flex-col h-full justify-between gap-6">
-                    <div className="flex justify-between items-start border-b border-white/5 pb-4">
-                        <div className="font-mono text-[9px] text-accent flex items-center gap-2">
-                            <FileText size={12} />
-                            {p.id.toUpperCase()}
-                        </div>
-                        <div className="font-mono text-[9px] text-white/40 border border-white/10 px-2 py-0.5 rounded group-hover:border-accent/50 group-hover:text-accent transition-colors">
+                <div>
+                    <div className="flex justify-between items-start mb-6">
+                        <div className="font-mono text-[10px] text-brand-sand/60 border border-brand-sand/20 px-2 py-0.5 rounded group-hover:border-brand-red group-hover:text-brand-red transition-colors">
                             [{p.status}]
                         </div>
+                        {p.link && (
+                            <a href={p.link} target="_blank" rel="noopener noreferrer" className="text-brand-saffron/50 hover:text-brand-saffron flex items-center gap-2 text-[10px] font-mono z-10 relative">
+                                VIEW_LIVE <Globe size={12} />
+                            </a>
+                        )}
                     </div>
 
-                    <div className="flex-grow">
-                        <h3 className="font-serif italic text-3xl text-white mb-2 group-hover:translate-x-2 transition-transform duration-300">{p.name}</h3>
-                        <p className="font-mono text-[10px] uppercase text-white/30 mb-6">{p.client}</p>
+                    <h3 className="font-serif italic text-5xl md:text-6xl text-brand-sand mb-2 group-hover:text-brand-saffron transition-all duration-300">{p.name}</h3>
+                    <p className="font-mono text-xs md:text-sm uppercase tracking-widest text-brand-sand/40 mb-10">{p.client}</p>
 
-                        <div className="space-y-6">
-                            <div className="relative pl-4 border-l border-white/10 group-hover:border-white/30 transition-colors">
-                                <span className="font-mono text-[9px] text-white/40 uppercase block mb-1">Brief</span>
-                                <p className="font-sans text-sm text-white/70 leading-relaxed line-clamp-3">{p.hypothesis}</p>
-                            </div>
-                            <div className="relative pl-4 border-l border-accent/30">
-                                <span className="font-mono text-[9px] text-accent uppercase block mb-1">Outcome</span>
-                                <p className="font-sans text-sm text-white leading-relaxed">{p.result}</p>
-                            </div>
+                    <div className="space-y-8 z-10 relative">
+                        <div className="relative pl-6 border-l-2 border-brand-sand/20 group-hover:border-brand-saffron transition-colors">
+                            <span className="font-mono text-[10px] text-brand-terracotta uppercase block mb-2 tracking-widest">The Inquiry</span>
+                            <p className="font-sans text-sm md:text-base text-brand-white/80 leading-relaxed max-w-lg">{p.hypothesis}</p>
+                        </div>
+                        <div className="relative pl-6 border-l w-2 border-brand-red/50 group-hover:border-brand-red transition-colors w-full">
+                            <span className="font-mono text-[10px] text-brand-red uppercase block mb-2 tracking-widest">Fabrication & Outcome</span>
+                            <p className="font-sans text-sm md:text-base text-brand-white leading-relaxed max-w-lg">{p.result}</p>
                         </div>
                     </div>
-
-                    <div className="pt-4 border-t border-white/5 flex justify-end">
-                        <ArrowUpRight className="text-white/20 group-hover:text-accent group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300 w-5 h-5" />
-                    </div>
                 </div>
-            </motion.div>
-        </Link>
+
+                <div className="mt-16 pt-8 border-t border-brand-red/20 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center z-10 relative">
+                    <div className="flex gap-2 flex-wrap">
+                        {p.layers.slice(0, 3).map((layer, idx) => (
+                            <span key={idx} className="font-mono text-[9px] border border-brand-sand/10 px-2 py-1 text-brand-sand/40 uppercase">
+                                {layer}
+                            </span>
+                        ))}
+                    </div>
+                    <Link to={`/project/${p.id}`} className="group/btn flex items-center justify-center min-w-[3rem] min-h-[3rem] w-12 h-12 rounded-full border border-brand-red/30 hover:bg-brand-red hover:border-brand-red transition-all duration-300 shrink-0">
+                        <ArrowUpRight className="text-brand-sand group-hover/btn:text-white group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform w-5 h-5" />
+                    </Link>
+                </div>
+            </div>
+        </motion.div>
     );
-}
+};
 
 const WorkGallery = () => {
     return (
-        <div className="w-full py-16 sm:py-24 md:py-32 px-4 md:px-12 relative z-20 bg-void/50 backdrop-blur-sm border-t border-white/5">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 md:mb-20 border-b border-white/10 pb-6 sm:pb-8">
-                    <div>
-                        <h2 className="font-serif italic text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white leading-none">
-                            Evidence <br /><span className="not-italic font-sans font-bold tracking-tight">Log</span>
-                        </h2>
-                    </div>
-                    <div className="font-mono text-xs text-white/40 mt-4 md:mt-0 md:mb-2">
-                        <ScrambleText text="[ ARCHIVE_ACCESS_GRANTED ]" />
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {projects.map((p, i) => (
-                        <Card key={p.id} p={p} i={i} />
-                    ))}
-                </div>
+        <div className="w-full relative z-20 mt-16 md:mt-24">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-8">
+                {projects.map((p, i) => (
+                    <Card key={p.id} p={p} i={i} />
+                ))}
             </div>
         </div>
     );

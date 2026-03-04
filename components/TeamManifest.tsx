@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Zap, Shield, Brain, Cpu, Palette, Activity, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Zap, Shield, Brain, Cpu, Palette, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getAllTeamMembers } from '../data/teamData';
 
@@ -12,118 +12,138 @@ const iconMap: Record<string, any> = {
     'dinesh_lade': Palette
 };
 
-const colorMap: Record<string, string> = {
-    'issac_jacob': 'text-accent',
-    'ishwari_jadhav': 'text-blue-400',
-    'ameya_ingale': 'text-purple-400',
-    'derek_dsouza': 'text-cyan-400',
-    'dinesh_lade': 'text-pink-400'
-};
-
 const operators = getAllTeamMembers().map(member => ({
-    id: member.id,
-    role: member.role,
-    name: member.name,
-    tagline: member.tagline,
-    stats: [
-        { label: "Projects", value: member.projectsCompleted.toString() },
-        { label: "Years", value: `${member.yearsActive}+` }
-    ],
-    image: member.image,
-    icon: iconMap[member.id] || Zap,
-    color: colorMap[member.id] || 'text-accent'
+    ...member,
+    icon: iconMap[member.id] || Zap
 }));
 
 const TeamManifest = () => {
-    const [activeOp, setActiveOp] = useState<number | null>(null);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(0); // Default to first open
 
     return (
-        <section className="relative z-20 py-16 sm:py-24 md:py-32 px-4 md:px-12 border-t border-white/5 bg-void/80 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 md:mb-24 border-b border-white/10 pb-6 sm:pb-8">
+        <section className="relative z-20 py-16 sm:py-24 md:py-32 border-t-2 border-brand-red bg-brand-black overflow-hidden">
+            <div className="max-w-[100rem] mx-auto px-4 md:px-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 md:mb-24 border-b border-brand-red/30 pb-6 sm:pb-8">
                     <div>
-                        <h2 className="font-serif italic text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-white leading-none mb-2">
-                            Specialized <br /><span className="not-italic font-sans font-bold tracking-tight">Operators</span>
+                        <h2 className="font-serif italic text-5xl md:text-7xl text-brand-sand leading-none mb-4">
+                            The <br /><span className="not-italic font-display uppercase tracking-tight text-brand-red">Architects</span>
                         </h2>
                     </div>
-                    <div className="font-mono text-xs text-white/40 mt-4 md:mt-0 md:mb-2 md:text-right">
-                        [ UNIT_DEPLOYMENT ]<br />
-                        NO_BLOAT_DETECTED
+                    <div className="font-mono text-xs text-brand-saffron mt-4 md:mt-0 md:mb-2 md:text-right uppercase tracking-widest leading-relaxed">
+                        [ CORE_STUDIO_OPERATIVES ]<br />
+                        Empirical Research & Fabrication
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
-                    {operators.map((op, i) => (
-                        <Link
-                            key={op.id}
-                            to={`/team/${op.id}`}
-                            className="block cursor-none"
-                        >
-                            <motion.div
-                                onMouseEnter={() => setActiveOp(i)}
-                                onMouseLeave={() => setActiveOp(null)}
-                                className={`relative min-h-[280px] sm:min-h-[320px] h-full border border-white/10 p-6 sm:p-8 flex flex-col justify-between transition-all duration-500 overflow-hidden group ${activeOp === i ? 'bg-white/5 border-white/30' : 'bg-transparent'}`}
-                            >
-                                <div className="absolute right-[-20%] bottom-[-20%] opacity-[0.05] group-hover:opacity-10 transition-opacity duration-700">
-                                    <op.icon size={300} strokeWidth={0.5} />
-                                </div>
+                <div className="flex flex-col lg:flex-row h-[1200px] lg:h-[700px] gap-2 border-l border-r border-t border-brand-red/20 p-2 relative bg-[#111]">
+                    <div className="absolute inset-0 pointer-events-none opacity-20"
+                        style={{
+                            backgroundImage: 'linear-gradient(rgba(214,40,40,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(214,40,40,0.2) 1px, transparent 1px)',
+                            backgroundSize: '20px 20px'
+                        }}
+                    />
 
-                                {op.image && (
-                                    <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-40 transition-opacity duration-700">
-                                        <img
-                                            src={op.image}
-                                            alt={op.name}
-                                            className="w-full h-full object-cover grayscale mix-blend-overlay"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-transparent" />
-                                    </div>
+                    {operators.map((op, i) => {
+                        const isActive = hoveredIndex === i;
+                        return (
+                            <motion.div
+                                key={op.id}
+                                onMouseEnter={() => setHoveredIndex(i)}
+                                layout
+                                initial={false}
+                                animate={{
+                                    flex: isActive ? 6 : 1,
+                                }}
+                                transition={{ type: 'spring', stiffness: 250, damping: 30 }}
+                                className={`relative h-full overflow-hidden border ${isActive ? 'border-brand-red bg-brand-black' : 'border-brand-red/10 bg-[#0a0a0a] hover:bg-[#151515]'} cursor-none group flex flex-col lg:flex-row`}
+                            >
+                                {/* Background Image with zoom */}
+                                {isActive && op.image && (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 1.1 }}
+                                        animate={{ opacity: 0.25, scale: 1 }}
+                                        transition={{ duration: 1.5, ease: "easeOut" }}
+                                        className="absolute inset-0 pointer-events-none"
+                                    >
+                                        <div className="absolute inset-0 bg-brand-black/60 mix-blend-multiply z-10" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-brand-black/50 z-20" />
+                                        <img src={op.image} alt={op.name} className="w-full h-full object-cover grayscale mix-blend-overlay blur-[1px]" />
+                                    </motion.div>
                                 )}
 
-                                <div className="flex justify-between items-start">
-                                    <div className="font-mono text-[9px] text-accent tracking-widest border border-accent/20 px-2 py-1 rounded">
-                                        {op.id}
+                                {/* Collapsed State */}
+                                <div className={`absolute top-0 left-0 w-full h-full flex flex-row lg:flex-col items-center justify-between p-6 transition-opacity duration-300 ${isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                                    <div className="font-mono text-xl tracking-widest text-brand-sand/50 lg:-rotate-90 origin-left whitespace-nowrap lg:mt-32">
+                                        {op.name.toUpperCase()}
                                     </div>
-                                    <Activity size={14} className="text-white/20 group-hover:text-accent transition-colors" />
+                                    <op.icon size={24} className="text-brand-red/30 group-hover:text-brand-red/60 transition-colors" />
                                 </div>
 
-                                <div className="relative z-10">
-                                    <h3 className={`font-sans font-bold text-2xl md:text-3xl mb-2 transition-colors duration-300 ${activeOp === i ? 'text-white' : 'text-white/70'}`}>
-                                        {op.name}
-                                    </h3>
-                                    <div className="font-mono text-xs text-accent mb-4 uppercase tracking-wider">
-                                        {op.role}
-                                    </div>
-                                    <p className="font-sans text-sm text-white/60 leading-relaxed border-l-2 border-white/10 pl-4">
-                                        {op.tagline}
-                                    </p>
-                                </div>
-
-                                <div className="relative z-10 mt-8">
-                                    <div className="grid grid-cols-2 gap-4 mb-4">
-                                        {op.stats.map((stat, idx) => (
-                                            <div key={idx}>
-                                                <div className="font-mono text-[9px] uppercase text-white/30 mb-1">{stat.label}</div>
-                                                <div className={`font-mono text-sm ${op.color}`}>{stat.value}</div>
+                                {/* Expanded State */}
+                                <div className={`relative z-20 w-full h-full p-8 md:p-12 lg:p-16 flex flex-col justify-between transition-opacity duration-300 delay-100 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <div className="font-mono text-[9px] text-brand-saffron tracking-widest border border-brand-saffron/20 px-2 py-1 rounded inline-block mb-6 bg-brand-black/50 backdrop-blur-sm">
+                                                ID: {op.id.toUpperCase()}
                                             </div>
-                                        ))}
+                                            <motion.h3
+                                                initial={{ y: 20, opacity: 0 }}
+                                                animate={{ y: isActive ? 0 : 20, opacity: isActive ? 1 : 0 }}
+                                                transition={{ delay: 0.1, duration: 0.4 }}
+                                                className="font-display uppercase tracking-wider text-5xl md:text-7xl text-brand-white leading-none mb-4 drop-shadow-xl"
+                                            >
+                                                {op.name}
+                                            </motion.h3>
+                                            <motion.div
+                                                initial={{ y: 10, opacity: 0 }}
+                                                animate={{ y: isActive ? 0 : 10, opacity: isActive ? 1 : 0 }}
+                                                transition={{ delay: 0.2, duration: 0.4 }}
+                                                className="font-mono text-sm md:text-base text-brand-terracotta uppercase tracking-[0.2em]"
+                                            >
+                                                {op.role}
+                                            </motion.div>
+                                        </div>
+                                        <op.icon size={64} strokeWidth={0.5} className="text-brand-red/20 hidden md:block" />
                                     </div>
 
-                                    {/* View Profile Indicator */}
-                                    <div className="flex items-center gap-2 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <span className="font-mono text-xs uppercase tracking-wider">View Profile</span>
-                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </div>
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: isActive ? 1 : 0 }}
+                                        transition={{ delay: 0.3, duration: 0.5 }}
+                                        className="max-w-xl"
+                                    >
+                                        <p className="font-sans text-brand-sand/80 text-lg leading-relaxed border-l-2 border-brand-red pl-6 mb-12 bg-brand-black/20 backdrop-blur-sm py-2">
+                                            {op.tagline}
+                                        </p>
+
+                                        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-10 border-t border-brand-red/20 pt-10">
+                                            <div>
+                                                <div className="font-mono text-[10px] uppercase tracking-widest text-brand-sand/40 mb-2">Focus</div>
+                                                <div className="font-mono text-sm text-brand-white">{op.expertise?.[0]?.area || "Engineering"}</div>
+                                            </div>
+                                            <div>
+                                                <div className="font-mono text-[10px] uppercase tracking-widest text-brand-sand/40 mb-2">Tenure</div>
+                                                <div className="font-mono text-sm text-brand-white">{op.yearsActive}+ Yrs</div>
+                                            </div>
+                                            <div className="hidden md:block">
+                                                <div className="font-mono text-[10px] uppercase tracking-widest text-brand-sand/40 mb-2">Projects</div>
+                                                <div className="font-mono text-sm text-brand-white">{op.projectsCompleted} Shipped</div>
+                                            </div>
+                                        </div>
+
+                                        <Link to={`/team/${op.id}`} className="inline-flex items-center gap-4 group/link">
+                                            <div className="w-12 h-12 rounded-full border border-brand-red/50 flex items-center justify-center group-hover/link:bg-brand-red group-hover/link:border-brand-red transition-all duration-300">
+                                                <ArrowUpRight className="w-5 h-5 text-brand-red group-hover/link:text-brand-black group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all" />
+                                            </div>
+                                            <span className="font-mono text-xs text-brand-sand uppercase tracking-widest group-hover/link:text-brand-white transition-colors">
+                                                Access Profile
+                                            </span>
+                                        </Link>
+                                    </motion.div>
                                 </div>
-
-                                <motion.div
-                                    className="absolute inset-0 border-2 border-accent/50 pointer-events-none"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: activeOp === i ? 1 : 0 }}
-                                    transition={{ duration: 0.3 }}
-                                />
                             </motion.div>
-                        </Link>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

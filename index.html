@@ -4,61 +4,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>MVP Daddy | Research & Venture Lab</title>
+  <title>MVP Daddy | Studio Linear Redesign</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Manrope:wght@200;300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Gotu&family=Tiro+Tamil&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300..700&family=VT323&family=Instrument+Serif:ital@0;1&display=swap"
     rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN for rapid global styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Configuration for Studio Linear x Sarvam Hybrid Aesthetic -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            serif: ['"Cormorant Garamond"', 'serif'],
-            sans: ['"Manrope"', 'sans-serif'],
-            mono: ['"Space Mono"', 'monospace'],
-            indic: ['"Gotu"', 'sans-serif'],
-            tamil: ['"Tiro Tamil"', 'serif'],
+            display: ['"Anton"', 'sans-serif'], // Studio Linear impact
+            sans: ['"Space Grotesk"', 'sans-serif'], // Clean modern body
+            mono: ['"VT323"', 'monospace'], // Retro-digital tech feel
+            serif: ['"Instrument Serif"', 'serif'], // Sarvam/Editorial elegant touch
           },
           colors: {
-            void: '#050505',
-            paper: '#E6E6E6',
-            subtle: '#2A2A2A',
-            accent: '#FF9933', // Deep Saffron (Indic Energy)
-            ember: '#FF3300',  // For fire accents
+            // Studio Linear Core
+            'brand-red': '#E70000',
+            'brand-black': '#0B0B0A', // Slightly warmer rich black
+            'brand-white': '#F4F0EB', // Warmer paper off-white (Sarvam influence)
+
+            // Sarvam / Indian Nuance Palette (Subtle)
+            'brand-saffron': '#E85D04',
+            'brand-terracotta': '#9C3D22',
+            'brand-sand': '#E2D4C1',
+
+            // Legacy fallbacks mapped to new system
+            void: '#0B0B0A',
+            paper: '#F4F0EB',
+            accent: '#E70000',
           },
           cursor: {
             none: 'none',
           },
-          backgroundImage: {
-            'noise': "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%\" height=\"100%\" filter=\"url(%23noiseFilter)\" opacity=\"0.05\"/%3E%3C/svg%3E')",
+          animation: {
+            'marquee-fast': 'marquee 10s linear infinite',
+            'marquee-slow': 'marquee 25s linear infinite',
+            'spin-slow': 'spin 8s linear infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-100%)' },
+            }
           }
         },
       },
     }
   </script>
+
+  <!-- Global Custom CSS (Bento Grid & Typography Rules & Noise) -->
   <style>
+    /* 
+      Hybrid Sarvam + Studio Linear Aesthetic 
+      - Strict structural borders (Linear)
+      - Warm, textured paper grounding (Sarvam)
+    */
+    :root {
+      --bg-color: #FDFBF7;
+      --text-color: #161412;
+      --border-color: #D62828;
+      /* Modern Indian Motif / Jaali - abstracted to geometric grid */
+      --pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M29.5 0h1v29.5h29.5v1H30.5V60h-1V30.5H0v-1h29.5V0z' fill='%23D62828' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+
     html {
       scroll-behavior: smooth;
-      background-color: #050505;
+      background-color: var(--bg-color);
     }
 
     body {
-      background-color: #1a1a1a;
-      /* Maximum brightness: Very light ambient glow */
-      background-image:
-        radial-gradient(circle at 50% 0%, #8a8a8a 0%, #3a3a3a 40%, #1a1a1a 100%),
-        linear-gradient(135deg, rgba(255, 153, 51, 0.03) 0%, transparent 50%, rgba(255, 153, 51, 0.02) 100%);
-      background-attachment: fixed;
-      color: #FFFFFF;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       overflow-x: hidden;
       cursor: none;
       width: 100vw;
+      /* Apply authentic texture */
+      background-image: var(--pattern);
     }
 
-    /* Enable normal cursor on touch devices */
+    .bento-box,
+    .bento-box-dark {
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.5s ease-out;
+    }
+
+    .bento-box-dark {
+      border-color: #161412;
+    }
+
     @media (hover: none) and (pointer: coarse) {
 
       body,
@@ -67,7 +111,6 @@
       }
     }
 
-    /* Respect user preference for reduced motion */
     @media (prefers-reduced-motion: reduce) {
 
       *,
@@ -81,12 +124,10 @@
     }
 
     ::selection {
-      background-color: #FF9933;
-      /* Saffron selection */
-      color: #000000;
+      background-color: #E70000;
+      color: #FFFFFF;
     }
 
-    /* Hide Scrollbar */
     ::-webkit-scrollbar {
       width: 0px;
       background: transparent;
@@ -97,83 +138,24 @@
       scrollbar-width: none;
     }
 
-    /* Enhanced Cinematic Textures - Multi-layered */
-    .holo-grid {
-      background-size: 80px 80px, 40px 40px;
-      background-image:
-        linear-gradient(to right, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
-        linear-gradient(to right, rgba(255, 153, 51, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 153, 51, 0.04) 1px, transparent 1px);
-      background-position: 0 0, 0 0, 20px 20px, 20px 20px;
-      mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+    /* Bento Grid Utilities */
+    .bento-box {
+      border: 1px solid #E70000;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      background-color: #FFFFFF;
     }
 
-    .scanlines {
-      background: linear-gradient(to bottom,
-          rgba(255, 255, 255, 0),
-          rgba(255, 255, 255, 0) 50%,
-          rgba(0, 0, 0, 0.1) 50%,
-          rgba(0, 0, 0, 0.1));
-      background-size: 100% 4px;
-      pointer-events: none;
+    .bento-box-dark {
+      border: 1px solid #E70000;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      background-color: #000000;
+      color: #F4F4F0;
     }
 
-    .vignette {
-      background: radial-gradient(circle at center, transparent 20%, rgba(10, 10, 10, 0.3) 120%);
-      pointer-events: none;
-    }
-
-    /* Film Grain Texture */
-    .film-grain {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 45;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    }
-
-    /* Technical Jaali Pattern - Enhanced Multi-layer */
-    .technical-jaali {
-      background-image:
-        radial-gradient(circle, rgba(255, 255, 255, 0.08) 2px, transparent 2px),
-        radial-gradient(circle, rgba(255, 153, 51, 0.05) 1.5px, transparent 1.5px),
-        linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
-        linear-gradient(-45deg, rgba(255, 153, 51, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 153, 51, 0.02) 75%);
-      background-size: 50px 50px, 25px 25px, 100px 100px, 100px 100px;
-      background-position: 0 0, 12.5px 12.5px, 0 0, 50px 50px;
-      mask-image: linear-gradient(to bottom, transparent, black 3%, black 97%, transparent);
-    }
-
-    /* Animated shimmer overlay */
-    @keyframes shimmer {
-      0% {
-        background-position: -200% 0;
-      }
-
-      100% {
-        background-position: 200% 0;
-      }
-    }
-
-    .shimmer-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      background: linear-gradient(90deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0.03) 50%,
-          transparent 100%);
-      background-size: 200% 100%;
-      animation: shimmer 15s linear infinite;
+    .border-hairline {
+      border: 1px solid #E70000;
     }
   </style>
   <script type="importmap">
