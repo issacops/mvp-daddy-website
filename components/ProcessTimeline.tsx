@@ -1,35 +1,35 @@
 import { motion } from 'framer-motion';
-import { Crosshair, GitBranch, Terminal, Zap } from 'lucide-react';
+import { Search, Beaker, Terminal, BarChart3 } from 'lucide-react';
 import ScrambleText from './ScrambleText';
 
 const phases = [
     {
         id: "01",
-        name: "Discovery",
-        sub: "Tech Stack Audit",
-        desc: "We evaluate your current codebase, GTM infrastructure, and revenue pipeline. We identify the critical gaps bleeding your runway before writing a single line of code.",
-        icon: Crosshair
+        name: "Research",
+        sub: "Discovery",
+        desc: "Every great product starts with a question worth answering. We conduct market research, behavioral analysis, and customer interviews to expose the real problem — not the assumed one.",
+        icon: Search
     },
     {
         id: "02",
-        name: "Architecture",
-        sub: "CTO Strategy",
-        desc: "Senior-level architectural decisions that protect your runway. We roadmap the technology, evaluate vendors, and design the middleware layer connecting product to revenue.",
-        icon: GitBranch
+        name: "Validate",
+        sub: "Consumer Signal",
+        desc: "Before we write a single line of production code, we test your hypothesis against real consumers. Landing pages, prototypes, and pre-launch campaigns that gauge genuine market interest.",
+        icon: Beaker
     },
     {
         id: "03",
-        name: "Fabrication",
-        sub: "MVP Engineering",
-        desc: "Lean, fast, and beautiful. Built on modern frameworks so you never throw away our code. We aggressively challenge assumptions to prevent overbuilding before launch.",
+        name: "Build",
+        sub: "Wired-Up Engineering",
+        desc: "Every feature ships with instrumentation baked in. Event tracking, behavioral analytics, and feedback loops — so consumer interest data flows directly into your next product decision.",
         icon: Terminal
     },
     {
         id: "04",
-        name: "Ignition",
-        sub: "GTM Activation",
-        desc: "Before you launch, your sales engine is already executing. We wire your product data into your CRM, set up automated outbound sequences, and activate signal-based selling.",
-        icon: Zap
+        name: "Measure",
+        sub: "Continuous Validation",
+        desc: "Post-launch is where it gets real. We track feature adoption, engagement depth, and retention signals — then feed that data back into the Research phase. The loop never stops.",
+        icon: BarChart3
     }
 ];
 
@@ -39,10 +39,10 @@ const ProcessTimeline = () => {
             <div className="max-w-5xl mx-auto">
                 <div className="mb-12 sm:mb-16 md:mb-24 text-center">
                     <span className="font-mono text-xs text-brand-saffron tracking-[0.3em] uppercase mb-4 block">
-                        <ScrambleText text="THE DADDY STACK" />
+                        <ScrambleText text="THE VALIDATION LOOP" />
                     </span>
                     <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[7vw] text-brand-white uppercase leading-[0.85] tracking-normal relative z-10">
-                        From Audit <br /> <span className="font-serif italic font-light text-brand-terracotta lowercase tracking-normal leading-[1.1] block mt-4">to revenue.</span>
+                        Research First. <br /> <span className="font-serif italic font-light text-brand-terracotta lowercase tracking-normal leading-[1.1] block mt-4">then build.</span>
                     </h2>
                 </div>
 

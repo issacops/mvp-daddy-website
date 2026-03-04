@@ -84,7 +84,7 @@ const HomePage: React.FC = () => {
                                 <ScrambleText text="WE ENGINEER" /> <br /> GTM-READY TECH STACKS.
                             </h1>
                             <p className="font-mono text-base md:text-lg max-w-2xl mt-2 bg-brand-black text-brand-sand inline-block px-4 py-3 uppercase tracking-widest shadow-[4px_4px_0px_#9D382A]">
-                                FRACTIONAL CTO + SCALABLE MVP + AUTOMATED REVENUE ENGINE.
+                                RESEARCH → VALIDATE → BUILD. EVERY FEATURE GAUGES CONSUMER INTEREST.
                             </p>
                         </div>
                     </BentoBox>
@@ -95,12 +95,12 @@ const HomePage: React.FC = () => {
                         </div>
                         <div className="relative z-10 flex flex-col h-full justify-between">
                             <div className="font-mono text-sm tracking-widest text-brand-red uppercase">
-                                Tech Stack Audit
+                                Validation-First Engineering
                             </div>
                             <div>
-                                <h3 className="font-display text-5xl uppercase leading-none mb-4">Launch With <br /> A System.</h3>
+                                <h3 className="font-display text-5xl uppercase leading-none mb-4">Validate <br /> Before You Build.</h3>
                                 <p className="font-sans text-xl leading-relaxed">
-                                    Most agencies hand you code and wish you luck. We hardwire your MVP into an automated revenue engine.
+                                    We don't ship features in the dark. Every release is wired to gauge real consumer interest — so you only scale what the market actually wants.
                                 </p>
                                 <a href="/initiate" className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-brand-saffron uppercase tracking-widest hover:text-brand-red transition-colors">
                                     Book a Free Tech Stack Audit <ArrowRight size={14} />
@@ -110,7 +110,7 @@ const HomePage: React.FC = () => {
                     </BentoBox>
                 </div>
 
-                <Marquee text="FRACTIONAL CTO LEADERSHIP // GTM AUTOMATION // MIDDLEWARE ARCHITECTURE // REVENUE ENGINEERING // " className="bg-brand-black text-brand-terracotta my-4" />
+                <Marquee text="RESEARCH FIRST // VALIDATE WITH REAL USERS // BUILD WHAT THE MARKET WANTS // GAUGE INTEREST WITH EVERY SHIP // " className="bg-brand-black text-brand-terracotta my-4" />
 
                 {/* ============================================ */}
                 {/* SECTION 2: THE PROBLEM (AGITATION) */}
@@ -134,7 +134,7 @@ const HomePage: React.FC = () => {
                                     But nobody is buying it.
                                 </p>
                                 <p>
-                                    Because traditional agencies are code factories. They leave you with a "naked" MVP—isolated software with zero connection to your sales infrastructure. You're left drowning in tech stack spaghetti, manually duct-taping your app to HubSpot while your runway evaporates.
+                                    Because they never validated whether anyone would. Traditional agencies are code factories. They build in the dark — no research, no consumer signal, no validation loop. You get a "naked" MVP with zero feedback instrumentation while your runway evaporates.
                                 </p>
                             </div>
                         </div>
@@ -148,7 +148,7 @@ const HomePage: React.FC = () => {
                     <div className="lg:col-span-3 mb-8">
                         <span className="font-mono text-sm text-brand-saffron tracking-widest uppercase block mb-4">The MVP Daddy Methodology</span>
                         <h2 className="font-display text-5xl md:text-7xl lg:text-[5vw] uppercase tracking-tighter leading-[0.85]">
-                            Enter The Daddy. <br /><span className="text-brand-red">We Engineer Products That Sell.</span>
+                            Enter The Daddy. <br /><span className="text-brand-red">Research. Validate. Then Build.</span>
                         </h2>
                     </div>
 
@@ -157,9 +157,9 @@ const HomePage: React.FC = () => {
                             <Cpu size={24} />
                         </div>
                         <div>
-                            <h3 className="font-serif italic text-5xl mb-3 group-hover:text-brand-saffron transition-colors">Fractional CTO.</h3>
+                            <h3 className="font-serif italic text-5xl mb-3 group-hover:text-brand-saffron transition-colors">Research & Strategy.</h3>
                             <p className="font-sans text-lg opacity-80">
-                                You don't need to burn $250K/yr on a full-time CTO to validate a prototype. We evaluate vendors, manage developers, and make data-driven decisions that protect your runway.
+                                Before a single line of code is written, we research your market, challenge your assumptions, and map the customer journey. Senior CTO-level strategy that protects your runway from day zero.
                             </p>
                         </div>
                     </BentoBox>
@@ -169,9 +169,9 @@ const HomePage: React.FC = () => {
                             <Code2 size={24} />
                         </div>
                         <div>
-                            <h3 className="font-display text-5xl uppercase mb-3">Scalable MVP.</h3>
+                            <h3 className="font-display text-5xl uppercase mb-3">Validate & Ship.</h3>
                             <p className="font-sans text-lg opacity-80">
-                                We build lean, fast, and beautiful. Modern frameworks so you never throw away our code. We aggressively challenge your assumptions to prevent overbuilding before launch.
+                                Every feature we ship is a hypothesis. We build lean and instrument everything — tracking consumer interest, engagement, and intent so you know what's working before you double down.
                             </p>
                         </div>
                     </BentoBox>
@@ -181,9 +181,9 @@ const HomePage: React.FC = () => {
                             <Zap size={24} />
                         </div>
                         <div>
-                            <h3 className="font-display text-5xl uppercase mb-3">GTM Engine.</h3>
+                            <h3 className="font-display text-5xl uppercase mb-3">Wired-Up Growth.</h3>
                             <p className="font-sans text-lg opacity-90">
-                                Our unfair advantage. Before you launch, we wire your MVP into a modern GTM stack—CRM, outbound, middleware. When your product goes live, your sales engine is already executing.
+                                Your product isn't an island. We wire it into analytics, CRM, and feedback loops from the start — so every feature shipped generates real consumer interest data that feeds your next decision.
                             </p>
                         </div>
                     </BentoBox>
@@ -194,17 +194,17 @@ const HomePage: React.FC = () => {
                 {/* ============================================ */}
                 <div className="mt-16">
                     <div className="mb-12">
-                        <span className="font-mono text-sm text-brand-saffron tracking-widest uppercase block mb-4">The Modern GTM Architecture (2026 Edition)</span>
+                        <span className="font-mono text-sm text-brand-saffron tracking-widest uppercase block mb-4">The Continuous Validation Stack (2026 Edition)</span>
                         <h2 className="font-display text-4xl md:text-6xl uppercase tracking-tighter leading-[0.85]">
-                            Signal-Based Selling <span className="text-brand-red">Replaces</span> Traditional Outbound.
+                            Every Feature Ships With <span className="text-brand-red">A Thesis.</span>
                         </h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         {[
-                            { icon: <Cpu size={20} />, title: "The Brains", sub: "CRM", desc: "HubSpot or Salesforce architectures tailored for early-stage agility and pristine data hygiene.", color: "bg-[#F4F0EB]" },
-                            { icon: <Zap size={20} />, title: "The Nervous System", sub: "Middleware", desc: "Custom Clay workflows, Zapier/Make logic for waterfall data enrichment and real-time intent signals.", color: "bg-brand-black text-brand-white" },
-                            { icon: <MessageSquare size={20} />, title: "The Mouth", sub: "Outbound", desc: "Instantly & Apollo infrastructure with secondary domains to protect your inbox while scaling outreach.", color: "bg-brand-black text-brand-white" },
-                            { icon: <Code2 size={20} />, title: "The Hands", sub: "Product", desc: "React & Node.js frameworks for maximum performance, minimal tech debt, and premium user experience.", color: "bg-brand-red text-brand-white" }
+                            { icon: <Cpu size={20} />, title: "The Research Layer", sub: "Discovery", desc: "Market research, competitive analysis, and customer interviews before architecture. We validate the problem before engineering the solution.", color: "bg-[#F4F0EB]" },
+                            { icon: <Zap size={20} />, title: "The Signal Layer", sub: "Analytics", desc: "Every feature is instrumented with event tracking, behavioral analytics, and engagement signals that tell you what consumers actually want.", color: "bg-brand-black text-brand-white" },
+                            { icon: <MessageSquare size={20} />, title: "The Feedback Layer", sub: "Validation", desc: "Automated feedback loops, A/B experiments, and product-qualified lead scoring that validate assumptions at every release cycle.", color: "bg-brand-black text-brand-white" },
+                            { icon: <Code2 size={20} />, title: "The Build Layer", sub: "Product", desc: "React & Node.js frameworks wired into the validation stack. Scalable, lean code that evolves based on real consumer interest data.", color: "bg-brand-red text-brand-white" }
                         ].map((item, idx) => (
                             <BentoBox key={idx} className={`${item.color} min-h-[280px] flex flex-col justify-between group hover:scale-[1.02] transition-transform duration-300`}>
                                 <div className="flex items-center gap-3 mb-6">
