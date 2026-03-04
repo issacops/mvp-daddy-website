@@ -1,0 +1,40 @@
+# MVP Daddy Labs — robots.txt
+# Allow all crawlers including AI systems
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Explicitly allow AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Cohere-AI
+Allow: /
+
+# Sitemap
+Sitemap: https://mvpdaddy.com/sitemap.xml
+
+# LLMs.txt
+# See https://mvpdaddy.com/llms.txt for AI-readable business description

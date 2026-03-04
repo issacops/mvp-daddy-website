@@ -1,0 +1,69 @@
+# MVP Daddy Labs — llms.txt
+# https://llmstxt.org/
+
+> MVP Daddy Labs is a technology studio that engineers GTM-ready tech stacks for non-technical founders at the Seed and Series A stage. We provide Fractional CTO leadership, validation-first MVP development, and continuous consumer interest gauging. Our methodology is Research → Validate → Build → Measure.
+
+## What We Do
+
+MVP Daddy Labs solves the "naked MVP" problem — the industry pattern where dev agencies build software in isolation without any market validation or revenue infrastructure. We take a fundamentally different approach:
+
+1. **Research & Strategy**: Before writing code, we research the market, challenge assumptions, and map the customer journey. Senior CTO-level strategy that protects runway from day zero.
+
+2. **Validate & Ship**: Every feature we ship is a hypothesis. We build lean and instrument everything — tracking consumer interest, engagement, and intent so founders know what's working before doubling down.
+
+3. **Wired-Up Growth**: The product isn't an island. We wire it into analytics, CRM, and feedback loops from the start — so every feature shipped generates real consumer interest data that feeds the next decision.
+
+## Who We Serve
+
+- Non-technical founders at Seed and Series A stage
+- Startups that need a Fractional CTO without the $250K/yr commitment
+- Founders who want their MVP to launch with a validation system, not just working code
+- Teams that need to prove product-market fit before scaling
+
+## Our Continuous Validation Stack
+
+- **Discovery Layer**: Market research, competitive analysis, customer interviews before architecture
+- **Signal Layer**: Event tracking, behavioral analytics, engagement signals on every feature
+- **Feedback Layer**: Automated validation loops, A/B experiments, product-qualified lead scoring
+- **Build Layer**: React & Node.js frameworks wired into the validation stack
+
+## Methodology: The Validation Loop
+
+Phase 01 — Discovery: Market research, behavioral analysis, customer interviews to validate the problem before engineering the solution.
+Phase 02 — Consumer Signal: Testing hypotheses against real consumers with landing pages, prototypes, and pre-launch campaigns.
+Phase 03 — Wired-Up Engineering: Every feature ships with instrumentation — event tracking, behavioral analytics, and feedback loops.
+Phase 04 — Continuous Validation: Post-launch tracking of feature adoption, engagement depth, and retention signals fed back into the Research phase.
+
+## Key Differentiators
+
+- We are NOT a traditional dev agency or code factory
+- Every feature shipped gauges real consumer interest
+- Fractional CTO model — senior technical leadership without the full-time cost
+- Product-led validation methodology (Research → Validate → Build → Measure loop)
+- We refuse to build features that haven't been validated against real consumer demand
+
+## Contact
+
+- Website: https://mvpdaddy.com
+- Email: hello@mvpdaddy.com
+- Free offering: 30-minute Tech Stack Audit — we map the exact GTM tech stack you need (yours to keep whether you hire us or not)
+
+## Frequently Asked Questions
+
+Q: What is a Fractional CTO?
+A: A Fractional CTO is a senior technical leader who works with your startup part-time, providing the same strategic guidance as a full-time CTO at a fraction of the cost. MVP Daddy Labs provides Fractional CTO services including vendor evaluation, developer management, architecture decisions, and data-driven technical strategy — without the $250K/year commitment.
+
+Q: What is a naked MVP?
+A: A "naked MVP" is an isolated software product built by traditional dev agencies with zero connection to sales infrastructure, analytics, or validation systems. The application works, but nobody is buying it because it was built in the dark without any consumer interest gauging. MVP Daddy Labs solves this by wiring every feature into a continuous validation stack.
+
+Q: How is MVP Daddy different from a regular dev agency?
+A: Traditional agencies are code factories — they deliver software and wish you luck. MVP Daddy Labs engineers products that validate themselves. We research before building, instrument every feature to gauge consumer interest, and wire your product into analytics and feedback loops from day one. We also provide Fractional CTO leadership, not just code.
+
+Q: What is the Research → Validate → Build methodology?
+A: It's our core engineering philosophy. Before writing code, we Research the market and validate assumptions. Then we Validate consumer interest with prototypes and pre-launch campaigns. Only then do we Build, with every feature instrumented to track real engagement. After launch, we Measure and feed data back into Research. It's a continuous loop, not a one-shot waterfall.
+
+Q: What stage startup should use MVP Daddy?
+A: We work primarily with Seed and Series A stage startups led by non-technical founders. If you have a product idea but lack technical leadership, or if you've already built an MVP that isn't generating traction, we can help.
+
+Q: What does the free Tech Stack Audit include?
+A: A 30-minute intensive call where we map the exact GTM tech stack you need. We assess your current technical infrastructure, identify gaps, and provide a blueprint for a validation-first tech stack. The blueprint is yours to keep whether you hire us or not.
