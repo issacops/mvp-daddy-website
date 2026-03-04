@@ -5,30 +5,30 @@ import ScrambleText from './ScrambleText';
 const phases = [
     {
         id: "01",
-        name: "Inquiry",
-        sub: "Observation",
-        desc: "Every great product begins with a question. We conduct empirical research and behavioral analysis to expose the underlying market truth.",
+        name: "Discovery",
+        sub: "Tech Stack Audit",
+        desc: "We evaluate your current codebase, GTM infrastructure, and revenue pipeline. We identify the critical gaps bleeding your runway before writing a single line of code.",
         icon: Crosshair
     },
     {
         id: "02",
         name: "Architecture",
-        sub: "Design",
-        desc: "We translate abstract research into structural reality. Designing elegant, intuitive logic that effortlessly bridges the human and the digital.",
+        sub: "CTO Strategy",
+        desc: "Senior-level architectural decisions that protect your runway. We roadmap the technology, evaluate vendors, and design the middleware layer connecting product to revenue.",
         icon: GitBranch
     },
     {
         id: "03",
         name: "Fabrication",
-        sub: "Engineering",
-        desc: "Software and hardware forged with obsessive precision. We build resilient, scalable ecosystems that perform flawlessly under extreme utility.",
+        sub: "MVP Engineering",
+        desc: "Lean, fast, and beautiful. Built on modern frameworks so you never throw away our code. We aggressively challenge assumptions to prevent overbuilding before launch.",
         icon: Terminal
     },
     {
         id: "04",
-        name: "Deployment",
-        sub: "Launch",
-        desc: "The transition from concept to market reality. We seamlessly initiate the infrastructure, ensuring a perfect collision with the public.",
+        name: "Ignition",
+        sub: "GTM Activation",
+        desc: "Before you launch, your sales engine is already executing. We wire your product data into your CRM, set up automated outbound sequences, and activate signal-based selling.",
         icon: Zap
     }
 ];
@@ -39,10 +39,10 @@ const ProcessTimeline = () => {
             <div className="max-w-5xl mx-auto">
                 <div className="mb-12 sm:mb-16 md:mb-24 text-center">
                     <span className="font-mono text-xs text-brand-saffron tracking-[0.3em] uppercase mb-4 block">
-                        <ScrambleText text="METHODOLOGY" />
+                        <ScrambleText text="THE DADDY STACK" />
                     </span>
                     <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[7vw] text-brand-white uppercase leading-[0.85] tracking-normal relative z-10">
-                        The Ignition <br /> <span className="font-serif italic font-light text-brand-terracotta lowercase tracking-normal leading-[1.1] block mt-4">protocol.</span>
+                        From Audit <br /> <span className="font-serif italic font-light text-brand-terracotta lowercase tracking-normal leading-[1.1] block mt-4">to revenue.</span>
                     </h2>
                 </div>
 

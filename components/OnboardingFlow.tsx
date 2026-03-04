@@ -152,7 +152,7 @@ const OnboardingFlow = () => {
         {
             id: 'identity',
             label: '01 // Identity',
-            question: 'Who are we architecting for?',
+            question: 'Who is initiating the inquiry?',
             subtext: 'Your name or organization.',
             component: (
                 <EditorialInput
@@ -167,13 +167,13 @@ const OnboardingFlow = () => {
         {
             id: 'signal',
             label: '02 // Coordinates',
-            question: 'Where do we send the blueprints?',
+            question: 'Where do we send the blueprint?',
             subtext: 'Primary email address.',
             component: (
                 <EditorialInput
                     value={formData.email}
                     onChange={v => setFormData({ ...formData, email: v })}
-                    placeholder="hello@future.com"
+                    placeholder="hello@startup.com"
                     type="email"
                     autoFocus
                     onEnter={handleNext}
@@ -182,15 +182,15 @@ const OnboardingFlow = () => {
         },
         {
             id: 'vision',
-            label: '03 // Objective',
-            question: 'What reality are you building?',
-            subtext: 'Briefly define the digital or physical ecosystem.',
+            label: '03 // The Problem',
+            question: 'What product do you need engineered?',
+            subtext: 'Describe the MVP and the market it serves.',
             component: (
                 <div className="relative w-full">
                     <textarea
                         value={formData.vision}
                         onChange={e => setFormData({ ...formData, vision: e.target.value })}
-                        placeholder="We are engineering a system that..."
+                        placeholder="We need a platform that..."
                         className="w-full bg-transparent border-b-2 border-brand-red text-4xl sm:text-5xl lg:text-6xl py-6 font-serif italic text-brand-black placeholder-brand-black/20 outline-none transition-all duration-300 min-h-[200px] resize-none"
                         autoFocus
                     />
@@ -199,12 +199,12 @@ const OnboardingFlow = () => {
         },
         {
             id: 'budget',
-            label: '04 // Capital Runback',
-            question: 'What is the allocated depth?',
-            subtext: 'Calibrating architectural commitment.',
+            label: '04 // Investment',
+            question: 'What is the allocated runway?',
+            subtext: 'Calibrating architectural depth.',
             component: (
                 <div className="flex flex-wrap gap-4 mt-8">
-                    {['Seed ($20k+)', 'Venture ($50k+)', 'Enterprise ($150k+)', 'Determining'].map(opt => (
+                    {['Seed ($20k+)', 'Venture ($50k+)', 'Enterprise ($150k+)', 'To Be Determined'].map(opt => (
                         <BrutalistChoice
                             key={opt}
                             label={opt}
@@ -221,8 +221,8 @@ const OnboardingFlow = () => {
         {
             id: 'timeline',
             label: '05 // Horizon',
-            question: 'When must this materialize?',
-            subtext: 'Anticipated timeline for market deployment.',
+            question: 'When must this go to market?',
+            subtext: 'Anticipated launch timeline.',
             component: (
                 <div className="flex flex-wrap gap-4 mt-8">
                     {['Immediate', 'Q1 (1-3 Mo)', 'Q2 (3-6 Mo)', 'Long Range'].map(opt => (
